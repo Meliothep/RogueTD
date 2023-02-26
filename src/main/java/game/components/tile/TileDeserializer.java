@@ -22,7 +22,6 @@ public class TileDeserializer extends StdDeserializer<Tile> {
     @Override
     public Tile deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         Tile tile = new Tile();
-
         Random rn = new Random();
 
         JsonNode root = jsonParser.getCodec().readTree(jsonParser);
@@ -34,9 +33,7 @@ public class TileDeserializer extends StdDeserializer<Tile> {
                 Point3D point3D = new Point3D(origin.path("x").asDouble(), 0, origin.path("z").asDouble());
                 wayCellsPoints.add(point3D);
                 tile.addWayCell(new WayCell(point3D));
-                System.out.println(point3D);
             }
-
             for (int i = 0; i <= 6; i++) {
                 double x = round(i * 0.4,1);
                 for (int j = 0; j <= 6 ; j++) {
@@ -52,7 +49,6 @@ public class TileDeserializer extends StdDeserializer<Tile> {
         }
         return tile;
     }
-
     private static double round (double value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;

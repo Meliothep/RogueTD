@@ -5,17 +5,23 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.core.serialization.Bundle;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.GameWorld;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.input.Input;
+import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.multiplayer.MultiplayerService;
 import com.almasb.fxgl.net.Connection;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Point3D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Map;
@@ -29,11 +35,9 @@ import static com.almasb.fxgl.dsl.FXGL.*;
  */
 public class RogueTD extends GameApplication {
     private Camera3D camera;
-
     public static void main(String[] args) {
         launch(args);
     }
-
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.set3D(true);
@@ -43,22 +47,27 @@ public class RogueTD extends GameApplication {
     @Override
     protected void initInput() {
         var cameraSpeed = 0.25;
-
         onKey(KeyCode.Z, () -> {
-            camera.getTransform().translateZ(cameraSpeed);
-            camera.getTransform().translateX(-cameraSpeed);
+            camera.moveForwardXZ();
         });
         onKey(KeyCode.S, () -> {
-            camera.getTransform().translateZ(-cameraSpeed);
-            camera.getTransform().translateX(cameraSpeed);
+            camera.moveBackXZ();
         });
         onKey(KeyCode.Q, () -> {
-            camera.getTransform().translateX(-cameraSpeed);
-            camera.getTransform().translateZ(-cameraSpeed);
+            camera.moveLeft();
         });
         onKey(KeyCode.D, () -> {
-            camera.getTransform().translateX(cameraSpeed);
-            camera.getTransform().translateZ(cameraSpeed);
+            camera.moveRight();
+        });
+        FXGL.getInput().addEventHandler(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent scrollEvent) {
+                if(scrollEvent.getDeltaY()>0){
+                   camera.moveForward();
+                }else{
+                    camera.moveBack();
+                }
+            }
         });
     }
 
@@ -73,9 +82,9 @@ public class RogueTD extends GameApplication {
     protected void cameraSetup(){
         camera = getGameScene().getCamera3D();
 
-        camera.getTransform().translateY(-8);
+        camera.getTransform().translateY(-10);
         camera.getTransform().translateX(8);
-        camera.getTransform().lookAt(new Point3D(-10,5,0));
+        camera.getTransform().lookAt(new Point3D(-10,20,0));
         camera.getTransform().translateZ(10);
         System.out.println("cam : " +camera.getTransform().getPosition3D());
     }

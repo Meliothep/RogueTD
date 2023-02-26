@@ -3,6 +3,7 @@ package game.components.tile.cell;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -19,7 +20,9 @@ public class FreeCell extends Cell{
         box.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                box.setMaterial(new PhongMaterial(Color.RED));
+                if (mouseEvent.getButton() == MouseButton.PRIMARY){
+                    box.setMaterial(new PhongMaterial(Color.RED));
+                }
             }
         });
         this.multiplier = multiplier;
