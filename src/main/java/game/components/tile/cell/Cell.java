@@ -1,0 +1,27 @@
+package game.components.tile.cell;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javafx.geometry.Point3D;
+import javafx.scene.Node;
+import javafx.scene.shape.Box;
+
+public abstract class Cell {
+    private Point3D origin;
+    @JsonIgnore
+    protected Box box;
+
+    public Cell(Point3D origin, Box box){
+        this.origin = origin;
+        this.box = box;
+        box.setTranslateX(origin.getX());
+        box.setTranslateZ(origin.getZ());
+    }
+
+    public Point3D getOrigin() {
+        return origin;
+    }
+    @JsonIgnore
+    public Node getbox() {
+        return box;
+    }
+}
