@@ -1,9 +1,16 @@
 package game.components.tile;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import game.components.tile.cell.FreeCell;
 import game.components.tile.cell.WayCell;
 import javafx.geometry.Point3D;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -30,7 +37,28 @@ public class TileBuilderHelper {
         }
         return tile;
     }
-    private static List<Point3D> rotateWaycells(List<Point3D> waycellPoints, double angle){
-        return null;
+
+    public static List<Point3D> getWaycellsFromJson(String jsonName) throws IOException {
+
+        InputStream json = TileBuilderHelper.class.getClassLoader().getResourceAsStream("assets/tiles/"+ jsonName +".json");
+        return new ObjectMapper().readValue(json,TilePrototyp.class).getWayCells();
+    }
+
+    public static List<Point3D> rotateWaycells(List<Point3D> waycellPoints, double angle){
+        List<Point3D> result = new ArrayList<>();
+        for (Point3D point3D : waycellPoints) {
+            double s = Math.sin(angle);
+            double c = Math.cos(angle);
+
+            // translate point back to origin:
+            double currentX = point3D.getX() - 1.2;
+            double currentZ = point3D.getZ() - 1.2;
+
+            // rotate point
+            double xnew = currentX * c - currentZ * s;
+            double ynew = currentX * s + currentZ * c;
+            result.add(new Point3D(round(xnew + 1.2,1), 0, round(ynew + 1.2,1)));
+        }
+        return result;
     }
 }
