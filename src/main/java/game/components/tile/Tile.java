@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@JsonRootName(value = "Tile")
-@JsonDeserialize(using = TileDeserializer.class)
 public class Tile {
     private List<FreeCell> freeCells;
     private List<WayCell> wayCells;
@@ -25,10 +23,9 @@ public class Tile {
     public void addFreeCell(FreeCell cell){ freeCells.add(cell); }
     public void addWayCell(WayCell cell){ wayCells.add(cell); }
 
-    @JsonIgnore
     public List<FreeCell> getFreeCells() { return freeCells; }
 
     public List<WayCell> getWayCells() { return wayCells; }
-    @JsonIgnore
+
     public List<Cell> getCells() { return Stream.concat(freeCells.stream(), wayCells.stream()).toList(); }
 }

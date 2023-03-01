@@ -7,7 +7,7 @@ import javafx.scene.shape.Box;
 
 public abstract class Cell {
     private Point3D origin;
-    @JsonIgnore
+
     protected Box box;
 
     public Cell(Point3D origin, Box box){
@@ -20,7 +20,7 @@ public abstract class Cell {
     public Point3D getOrigin() {
         return origin;
     }
-    @JsonIgnore
+
     public Node getbox() {
         return box;
     }

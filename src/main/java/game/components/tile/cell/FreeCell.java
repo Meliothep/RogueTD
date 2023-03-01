@@ -1,6 +1,5 @@
 package game.components.tile.cell;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseButton;
@@ -9,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
-@JsonRootName(value = "FreeCell")
 public class FreeCell extends Cell{
     int multiplier;
     boolean filed = false;
