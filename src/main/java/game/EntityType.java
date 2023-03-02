@@ -1,5 +1,5 @@
 package game;
 
 public enum EntityType {
-    TILE
+    TILE, BASE,
 }

@@ -20,17 +20,16 @@ public class EntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     @Spawns(value = "TILE")
     public Entity newCell(SpawnData data) throws IOException {
 
-        var truc = TileBuilderHelper.getWaycellsFromJson("tile");
+        var truc = TileBuilderHelper.getWaycellsFromJson("rightAngle");
 
-        Tile tile = TileBuilderHelper.fromWaycellsOrigins( TileBuilderHelper.rotateWaycells(truc, Math.toRadians(90)));
-        EntityBuilder entityBuilder = entityBuilder(data)
-                .type(EntityType.TILE)
-                .at(data.getX(), data.getY(), data.getZ())
-                .bbox(new HitBox(BoundingShape.box3D(10, 1.2, 10)));
+        Tile tile = TileBuilderHelper.fromWaycellsOrigins( TileBuilderHelper.rotateWaycells(truc, Math.toRadians(-90)));
+
+        tile.setType(EntityType.TILE);
+        tile.setPosition3D(data.getX(), data.getY(), data.getZ());
+        tile.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box3D(10, 1.2, 10)));
         for (Cell cell : tile.getCells()){
-            entityBuilder.view(cell.getbox());
+            tile.getViewComponent().addChild(cell.getbox());
         }
-
-        return entityBuilder.build();
+        return tile;
     }
 }

@@ -1,5 +1,6 @@
 package game.components.tile;
 
+import com.almasb.fxgl.entity.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Tile {
+public class Tile  extends Entity {
     private List<FreeCell> freeCells;
     private List<WayCell> wayCells;
 
