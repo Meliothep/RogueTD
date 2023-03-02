@@ -5,10 +5,11 @@ import game.Utils.Directions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.Utils.Utils.randomIntBetween;
+
 public class TileBuilder {
     private Directions entry;
-    private List<Directions> invalidDirection = new ArrayList<>();
-    private jsonDirections choice;
+    private List<Directions> validDirections = new ArrayList<>();
     private Directions currentEntry;
     private Directions currentDirection;
 
@@ -17,19 +18,19 @@ public class TileBuilder {
         return this;
     }
 
-    public TileBuilder withInvalidDirection(Directions... directions){
-        invalidDirection.addAll(List.of(directions));
+    public TileBuilder addValidDirections(Directions... directions){
+        validDirections.addAll(List.of(directions));
         return this;
     }
 
     public Tile build(){
-
+        var finalDirection = validDirections.get(randomIntBetween(0, validDirections.size()-1));
         return null;
     }
 
     enum jsonDirections{
         straight(Directions.NORTH),
-        rightAngle(Directions.EST);
-        jsonDirections(Directions directions) {}
+        rightAngle(Directions.EST, Directions.WEST);
+        jsonDirections(Directions... directions) {}
     }
 }
