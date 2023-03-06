@@ -3,6 +3,7 @@ package game.components.tile;
 import game.Utils.Directions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static game.Utils.Utils.randomIntBetween;
@@ -24,7 +25,7 @@ public class TileBuilder {
     }
 
     public Tile build(){
-        var finalDirection = validDirections.get(randomIntBetween(0, validDirections.size()-1));
+        Directions finalDirection = validDirections.get(randomIntBetween(0, validDirections.size()-1));
         return null;
     }
 

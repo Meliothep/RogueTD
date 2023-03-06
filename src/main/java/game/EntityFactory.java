@@ -26,7 +26,6 @@ public class EntityFactory implements com.almasb.fxgl.entity.EntityFactory {
 
         tile.setType(EntityType.TILE);
         tile.setPosition3D(data.getX(), data.getY(), data.getZ());
-        tile.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box3D(10, 1.2, 10)));
         for (Cell cell : tile.getCells()){
             tile.getViewComponent().addChild(cell.getbox());
         }
