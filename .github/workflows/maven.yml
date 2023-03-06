@@ -33,4 +33,3 @@ jobs:
           path: target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: true
-          token: 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
