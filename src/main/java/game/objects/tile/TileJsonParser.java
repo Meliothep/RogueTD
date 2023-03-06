@@ -26,7 +26,7 @@ class TileJsonParser extends StdDeserializer<TilePrototyp> {
         for(JsonNode node: wayCells){
             JsonNode origin = node.path("origin");
             Point3D point3D = new Point3D(origin.path("x").asDouble(), 0, origin.path("z").asDouble());
-            tilePrototyp.add(point3D);
+            tilePrototyp.getWayCells().add(point3D);
         }
 
 

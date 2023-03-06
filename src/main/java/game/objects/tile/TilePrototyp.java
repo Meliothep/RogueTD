@@ -21,6 +21,7 @@ class TilePrototyp {
         return wayCells;
     }
     protected void setWayCells(List<Point3D> wayCells) { this.wayCells = wayCells; }
+
     public Tile build(){
         Tile tile = new Tile();
         Random rn = new Random();
