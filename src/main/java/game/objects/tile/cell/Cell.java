@@ -1,4 +1,4 @@
-package game.components.tile.cell;
+package game.objects.tile.cell;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.geometry.Point3D;

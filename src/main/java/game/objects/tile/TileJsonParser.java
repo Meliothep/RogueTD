@@ -1,19 +1,13 @@
-package game.components.tile;
+package game.objects.tile;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import game.components.tile.cell.FreeCell;
-import game.components.tile.cell.WayCell;
 import javafx.geometry.Point3D;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Random;
 
 class TileJsonParser extends StdDeserializer<TilePrototyp> {
     protected TileJsonParser() {

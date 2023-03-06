@@ -1,4 +1,4 @@
-package game.components.tile.cell;
+package game.objects.tile.cell;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;

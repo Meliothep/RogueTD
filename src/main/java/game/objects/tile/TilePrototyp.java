@@ -1,23 +1,27 @@
-package game.components.tile;
+package game.objects.tile;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import game.components.tile.cell.FreeCell;
-import game.components.tile.cell.WayCell;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import game.objects.tile.cell.FreeCell;
+import game.objects.tile.cell.WayCell;
 import javafx.geometry.Point3D;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import static game.Utils.Utils.round;
 
-public class TileBuilderHelper {
-    public static Tile fromWaycellsOrigins(List<Point3D> waycellPoints){
+@JsonDeserialize(using = TileJsonParser.class)
+class TilePrototyp {
+    private List<Point3D> wayCells = new ArrayList<>();
+    public List<Point3D> getWayCells(){
+        return wayCells;
+    }
+    protected void setWayCells(List<Point3D> wayCells) { this.wayCells = wayCells; }
+    public Tile build(){
         Tile tile = new Tile();
         Random rn = new Random();
 
@@ -26,7 +30,7 @@ public class TileBuilderHelper {
             for (int j = 0; j <= 6 ; j++) {
                 double z = round(j * 0.4,1);
                 Point3D currentPoint = new Point3D(x, 0 , z);
-                if (!waycellPoints.contains(currentPoint)){
+                if (!wayCells.contains(currentPoint)){
                     int multiplier = 1 + (rn.nextInt(3) == 0?1:0);
                     multiplier = (multiplier == 2) ? multiplier + (rn.nextInt(5) == 0?1:0) : multiplier;
                     tile.addFreeCell(new FreeCell(currentPoint,multiplier));
@@ -38,17 +42,17 @@ public class TileBuilderHelper {
         return tile;
     }
 
-    public static List<Point3D> getWaycellsFromJson(String jsonName) throws IOException {
+    public static TilePrototyp fromJson(String jsonName) throws IOException {
 
-        InputStream json = TileBuilderHelper.class.getClassLoader().getResourceAsStream("assets/tiles/"+ jsonName +".json");
-        return new ObjectMapper().readValue(json,TilePrototyp.class).getWayCells();
+        InputStream json = TilePrototyp.class.getClassLoader().getResourceAsStream("assets/tiles/"+ jsonName +".json");
+        return new ObjectMapper().readValue(json,TilePrototyp.class);
     }
 
-    public static List<Point3D> rotateWaycells(List<Point3D> waycellPoints, double angle){
+    public void rotate(double angle){
         List<Point3D> result = new ArrayList<>();
-        for (Point3D point3D : waycellPoints) {
-            double s = Math.sin(angle);
-            double c = Math.cos(angle);
+        for (Point3D point3D : wayCells) {
+            double s = Math.sin(Math.toRadians(angle));
+            double c = Math.cos(Math.toRadians(angle));
 
             // translate point back to origin:
             double currentX = point3D.getX() - 1.2;
@@ -59,6 +63,6 @@ public class TileBuilderHelper {
             double ynew = currentX * s + currentZ * c;
             result.add(new Point3D(round(xnew + 1.2,1), 0, round(ynew + 1.2,1)));
         }
-        return result;
+        wayCells = result;
     }
 }

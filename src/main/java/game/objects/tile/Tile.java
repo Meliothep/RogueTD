@@ -1,12 +1,9 @@
-package game.components.tile;
+package game.objects.tile;
 
 import com.almasb.fxgl.entity.Entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import game.components.tile.cell.Cell;
-import game.components.tile.cell.FreeCell;
-import game.components.tile.cell.WayCell;
+import game.objects.tile.cell.Cell;
+import game.objects.tile.cell.FreeCell;
+import game.objects.tile.cell.WayCell;
 
 import java.util.ArrayList;
 import java.util.List;
