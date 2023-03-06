@@ -1,18 +1,20 @@
 package game.objects.tile;
 
+import game.objects.tile.cell.WayCell;
 import javafx.geometry.Point3D;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TilePrototypTest {
-    private List<Point3D> rightAngle = Arrays.asList(
+    private final List<Point3D> rightAngle = Arrays.asList(
             new Point3D(1.2,0,0),
             new Point3D(1.2,0,0.4),
             new Point3D(1.2,0,0.8),
@@ -21,7 +23,7 @@ public class TilePrototypTest {
             new Point3D(2,0,1.2),
             new Point3D(2.4,0,1.2)
     );
-    private List<Point3D> straight = Arrays.asList(
+    private final List<Point3D> straight = Arrays.asList(
             new Point3D(1.2,0,0),
             new Point3D(1.2,0,0.4),
             new Point3D(1.2,0,0.8),
@@ -42,7 +44,7 @@ public class TilePrototypTest {
     }
     @Test
     public void fromJson_throw() throws IOException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {TilePrototyp.fromJson("azhgdsiua");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> TilePrototyp.fromJson("azhgdsiua"));
     }
 
     @Test
@@ -83,5 +85,21 @@ public class TilePrototypTest {
         prototyp.rotate(90);
         //assert
         assertThat(prototyp.getWayCells(), Matchers.containsInAnyOrder(rightAngleRP.toArray()));
+    }
+
+    @Test
+    public void build() {
+        TilePrototyp prototyp = new TilePrototyp();
+        prototyp.setWayCells(rightAngle);
+        //act
+        Tile tile = prototyp.build();
+        //prepare
+        List<Point3D> waycellsOrigins = new ArrayList<>();
+        for (WayCell wc: tile.getWayCells()) {
+            waycellsOrigins.add(wc.getOrigin());
+        }
+        //assert
+        assertThat(waycellsOrigins, Matchers.containsInAnyOrder(rightAngle.toArray()));
+        assertThat(tile.getCells().size()-tile.getWayCells().size(), Matchers.equalTo(49-rightAngle.size()));
     }
 }
