@@ -1,11 +1,17 @@
 package game.objects.tile;
 
+import com.almasb.fxgl.dsl.EntityBuilder;
+import game.EntityType;
 import game.Utils.Directions;
+import game.objects.tile.cell.Cell;
 import javafx.geometry.Point3D;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static game.Utils.Utils.randomIntBetween;
 
 public class TileBuilder {
     private Directions entry;
@@ -30,11 +36,40 @@ public class TileBuilder {
     }
 
     public Tile build(){
-        TilePrototyp prototyp = null;
         if(validDirections.size() == 0){
             //TODO return TILE END
         }
+        Directions choice = validDirections.size()>1 ?
+                validDirections.get(randomIntBetween(1, validDirections.size())-1):
+                validDirections.get(0);
+
+        String fileName = selectFile(withSouthEntry(entry, choice));
+
+        try {
+            TilePrototyp prototype = TilePrototyp.fromJson(fileName);
+            prototype.rotate(diffWithSouth(entry)*90);
+            Tile tile = prototype.build();
+            tile.setPosition3D(position);
+            tile.setType(EntityType.TILE);
+            for (Cell cell : tile.getCells()){
+                tile.getViewComponent().addChild(cell.getbox());
+            }
+            return tile;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+    protected static String selectFile(Directions direction){
+        List<JsonDirections> validFiles = new ArrayList<>();
+        for (JsonDirections json : JsonDirections.values()){
+            if (json.directions.contains(direction)){
+                validFiles.add(json);
+            }
+        }
+        return validFiles.size()>1 ?
+                        validFiles.get(randomIntBetween(1, validFiles.size())-1).name():
+                        validFiles.get(0).name();
     }
 
     protected static Directions withSouthEntry(Directions entry, Directions exit){
@@ -42,14 +77,14 @@ public class TileBuilder {
         return index >= 0 ? Arrays.stream(Directions.values()).toList().get(index%4) : Arrays.stream(Directions.values()).toList().get(4+index);
     }
 
-    protected static int diffWithSouth(Directions direction){
+    private static int diffWithSouth(Directions direction){
         return Arrays.stream(Directions.values()).toList().indexOf(Directions.SOUTH) - Arrays.stream(Directions.values()).toList().indexOf(direction);
     }
 
-    enum jsonDirections{
+    enum JsonDirections{
         straight(Directions.NORTH),
         rightAngle(Directions.EAST, Directions.WEST);
-        jsonDirections(Directions... directions) {
+        JsonDirections(Directions... directions) {
             this.directions = Arrays.stream(directions).toList();
         }
         public final List<Directions> directions;
