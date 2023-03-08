@@ -15,7 +15,7 @@ import java.util.Random;
 import static game.Utils.Utils.round;
 
 @JsonDeserialize(using = TileJsonParser.class)
-class TilePrototyp {
+class TilePrototype {
     private List<Point3D> wayCells = new ArrayList<>();
     public List<Point3D> getWayCells(){
         return wayCells;
@@ -43,10 +43,10 @@ class TilePrototyp {
         return tile;
     }
 
-    public static TilePrototyp fromJson(String jsonName) throws IOException {
+    public static TilePrototype fromJson(String jsonName) throws IOException {
 
-        InputStream json = TilePrototyp.class.getClassLoader().getResourceAsStream("assets/tiles/"+ jsonName +".json");
-        return new ObjectMapper().readValue(json,TilePrototyp.class);
+        InputStream json = TilePrototype.class.getClassLoader().getResourceAsStream("assets/tiles/"+ jsonName +".json");
+        return new ObjectMapper().readValue(json, TilePrototype.class);
     }
 
     public void rotate(double angle){

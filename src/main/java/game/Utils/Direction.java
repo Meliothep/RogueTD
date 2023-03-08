@@ -1,5 +1,5 @@
 package game.Utils;
 
-public enum Directions {
+public enum Direction {
     SOUTH, EAST, NORTH, WEST;
 }

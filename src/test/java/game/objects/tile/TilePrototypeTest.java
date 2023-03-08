@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TilePrototypTest {
+public class TilePrototypeTest {
     private final List<Point3D> rightAngle = Arrays.asList(
             new Point3D(1.2,0,0),
             new Point3D(1.2,0,0.4),
@@ -34,17 +34,17 @@ public class TilePrototypTest {
     );
     @Test
     public void fromJson_straight() throws IOException {
-        TilePrototyp prototyp = TilePrototyp.fromJson("straight");
+        TilePrototype prototyp = TilePrototype.fromJson("straight");
         Assertions.assertEquals(prototyp.getWayCells(), straight);
     }
     @Test
     public void fromJson_rightAngle() throws IOException {
-        TilePrototyp prototyp = TilePrototyp.fromJson("rightAngle");
+        TilePrototype prototyp = TilePrototype.fromJson("rightAngle");
         Assertions.assertEquals(prototyp.getWayCells(), rightAngle);
     }
     @Test
     public void fromJson_throw() throws IOException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> TilePrototyp.fromJson("azhgdsiua"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> TilePrototype.fromJson("azhgdsiua"));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TilePrototypTest {
                 new Point3D(1.2,0,0.8),
                 new Point3D(1.2,0,1.2)
         );
-        TilePrototyp prototyp = new TilePrototyp();
+        TilePrototype prototyp = new TilePrototype();
         prototyp.setWayCells(rightAngle);
         //act
         prototyp.rotate(-90);
@@ -79,7 +79,7 @@ public class TilePrototypTest {
                 new Point3D(2,0,1.2),
                 new Point3D(2.4,0,1.2)
         );
-        TilePrototyp prototyp = new TilePrototyp();
+        TilePrototype prototyp = new TilePrototype();
         prototyp.setWayCells(rightAngle);
         //act
         prototyp.rotate(90);
@@ -89,7 +89,7 @@ public class TilePrototypTest {
 
     @Test
     public void build() {
-        TilePrototyp prototyp = new TilePrototyp();
+        TilePrototype prototyp = new TilePrototype();
         prototyp.setWayCells(rightAngle);
         //act
         Tile tile = prototyp.build();

@@ -1,6 +1,6 @@
 package game.objects.tile;
 
-import game.Utils.Directions;
+import game.Utils.Direction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,48 +8,48 @@ public class TileBuilderTest_withSouthEntry {
 
     @Test
     public void str_S(){
-        Assertions.assertEquals(Directions.NORTH, TileBuilder.withSouthEntry(Directions.SOUTH, Directions.NORTH) );
+        Assertions.assertEquals(Direction.NORTH, TileBuilder.withSouthEntry(Direction.SOUTH, Direction.NORTH) );
     }
     @Test
     public void str_N(){
-        Assertions.assertEquals(Directions.NORTH, TileBuilder.withSouthEntry(Directions.NORTH, Directions.SOUTH) );
+        Assertions.assertEquals(Direction.NORTH, TileBuilder.withSouthEntry(Direction.NORTH, Direction.SOUTH) );
     }
     @Test
     public void str_W(){
-        Assertions.assertEquals(Directions.NORTH, TileBuilder.withSouthEntry(Directions.WEST, Directions.EAST));
+        Assertions.assertEquals(Direction.NORTH, TileBuilder.withSouthEntry(Direction.WEST, Direction.EAST));
     }
     @Test
     public void str_E(){
-        Assertions.assertEquals(Directions.NORTH, TileBuilder.withSouthEntry(Directions.EAST, Directions.WEST));
+        Assertions.assertEquals(Direction.NORTH, TileBuilder.withSouthEntry(Direction.EAST, Direction.WEST));
     }
 
     @Test
     public void right_S(){
-        Assertions.assertEquals(Directions.EAST, TileBuilder.withSouthEntry(Directions.SOUTH, Directions.EAST));
+        Assertions.assertEquals(Direction.EAST, TileBuilder.withSouthEntry(Direction.SOUTH, Direction.EAST));
     }
 
     @Test
     public void right_E(){
-        Assertions.assertEquals(Directions.EAST, TileBuilder.withSouthEntry(Directions.EAST, Directions.NORTH));
+        Assertions.assertEquals(Direction.EAST, TileBuilder.withSouthEntry(Direction.EAST, Direction.NORTH));
     }
 
     @Test
     public void right_N(){
-        Assertions.assertEquals(Directions.EAST, TileBuilder.withSouthEntry(Directions.NORTH, Directions.WEST));
+        Assertions.assertEquals(Direction.EAST, TileBuilder.withSouthEntry(Direction.NORTH, Direction.WEST));
     }
 
     @Test
     public void left_S(){
-        Assertions.assertEquals(Directions.WEST, TileBuilder.withSouthEntry(Directions.SOUTH, Directions.WEST));
+        Assertions.assertEquals(Direction.WEST, TileBuilder.withSouthEntry(Direction.SOUTH, Direction.WEST));
     }
 
     @Test
     public void left_W(){
-        Assertions.assertEquals(Directions.WEST, TileBuilder.withSouthEntry(Directions.WEST, Directions.NORTH));
+        Assertions.assertEquals(Direction.WEST, TileBuilder.withSouthEntry(Direction.WEST, Direction.NORTH));
     }
 
     @Test
     public void left_N(){
-        Assertions.assertEquals(Directions.WEST, TileBuilder.withSouthEntry(Directions.NORTH, Directions.EAST));
+        Assertions.assertEquals(Direction.WEST, TileBuilder.withSouthEntry(Direction.NORTH, Direction.EAST));
     }
 }

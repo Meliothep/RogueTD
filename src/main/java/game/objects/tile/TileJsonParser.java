@@ -9,19 +9,19 @@ import javafx.geometry.Point3D;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 
-class TileJsonParser extends StdDeserializer<TilePrototyp> {
+class TileJsonParser extends StdDeserializer<TilePrototype> {
     protected TileJsonParser() {
         super(Tile.class);
     }
     @Override
-    public TilePrototyp deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public TilePrototype deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode root = jsonParser.getCodec().readTree(jsonParser);
         JsonNode wayCells = root.path("wayCells");
 
         if(!wayCells.isArray())
             throw new InvalidPropertiesFormatException("Le json ne contient pas de tableau 'wayCells'");
 
-        TilePrototyp tilePrototyp = new TilePrototyp();
+        TilePrototype tilePrototyp = new TilePrototype();
 
         for(JsonNode node: wayCells){
             JsonNode origin = node.path("origin");

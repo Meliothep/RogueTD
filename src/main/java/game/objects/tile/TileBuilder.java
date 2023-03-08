@@ -1,8 +1,7 @@
 package game.objects.tile;
 
-import com.almasb.fxgl.dsl.EntityBuilder;
 import game.EntityType;
-import game.Utils.Directions;
+import game.Utils.Direction;
 import game.objects.tile.cell.Cell;
 import javafx.geometry.Point3D;
 
@@ -14,10 +13,10 @@ import java.util.List;
 import static game.Utils.Utils.randomIntBetween;
 
 public class TileBuilder {
-    private Directions entry;
-    private final List<Directions> validDirections = new ArrayList<>();
+    private Direction entry;
+    private final List<Direction> validDirections = new ArrayList<>();
     private Point3D position = new Point3D(0,0,0);
-    public TileBuilder withEntryIn(Directions direction){
+    public TileBuilder withEntryIn(Direction direction){
         this.entry = direction;
         return this;
     }
@@ -30,7 +29,7 @@ public class TileBuilder {
         position = new Point3D(x, y, z);
         return this;
     }
-    public TileBuilder addValidDirections(Directions... directions){
+    public TileBuilder addValidDirections(Direction... directions){
         validDirections.addAll(List.of(directions));
         return this;
     }
@@ -39,15 +38,15 @@ public class TileBuilder {
         if(validDirections.size() == 0){
             //TODO return TILE END
         }
-        Directions choice = validDirections.size()>1 ?
+        Direction choice = validDirections.size()>1 ?
                 validDirections.get(randomIntBetween(1, validDirections.size())-1):
                 validDirections.get(0);
 
         String fileName = selectFile(withSouthEntry(entry, choice));
 
         try {
-            TilePrototyp prototype = TilePrototyp.fromJson(fileName);
-            prototype.rotate(diffWithSouth(entry)*90);
+            TilePrototype prototype = TilePrototype.fromJson(fileName);
+            rotatePrototype(prototype, entry, choice);
             Tile tile = prototype.build();
             tile.setPosition3D(position);
             tile.setType(EntityType.TILE);
@@ -60,7 +59,12 @@ public class TileBuilder {
         }
         return null;
     }
-    protected static String selectFile(Directions direction){
+
+    protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice){
+        prototype.rotate(diffWithSouth(entry)*90+ (withSouthEntry(entry, choice)== Direction.WEST ? -90: 0));
+    }
+
+    protected static String selectFile(Direction direction){
         List<JsonDirections> validFiles = new ArrayList<>();
         for (JsonDirections json : JsonDirections.values()){
             if (json.directions.contains(direction)){
@@ -72,21 +76,21 @@ public class TileBuilder {
                         validFiles.get(0).name();
     }
 
-    protected static Directions withSouthEntry(Directions entry, Directions exit){
-        int index = Arrays.stream(Directions.values()).toList().indexOf(exit) + diffWithSouth(entry);
-        return index >= 0 ? Arrays.stream(Directions.values()).toList().get(index%4) : Arrays.stream(Directions.values()).toList().get(4+index);
+    protected static Direction withSouthEntry(Direction entry, Direction exit){
+        int index = Arrays.stream(Direction.values()).toList().indexOf(exit) + diffWithSouth(entry);
+        return index >= 0 ? Arrays.stream(Direction.values()).toList().get(index%4) : Arrays.stream(Direction.values()).toList().get(4+index);
     }
 
-    private static int diffWithSouth(Directions direction){
-        return Arrays.stream(Directions.values()).toList().indexOf(Directions.SOUTH) - Arrays.stream(Directions.values()).toList().indexOf(direction);
+    private static int diffWithSouth(Direction direction){
+        return Arrays.stream(Direction.values()).toList().indexOf(Direction.SOUTH) - Arrays.stream(Direction.values()).toList().indexOf(direction);
     }
 
     enum JsonDirections{
-        straight(Directions.NORTH),
-        rightAngle(Directions.EAST, Directions.WEST);
-        JsonDirections(Directions... directions) {
+        straight(Direction.NORTH),
+        rightAngle(Direction.EAST, Direction.WEST);
+        JsonDirections(Direction... directions) {
             this.directions = Arrays.stream(directions).toList();
         }
-        public final List<Directions> directions;
+        public final List<Direction> directions;
     }
 }
