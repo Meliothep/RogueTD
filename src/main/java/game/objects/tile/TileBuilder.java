@@ -61,7 +61,7 @@ public class TileBuilder {
     }
 
     protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice){
-        prototype.rotate(diffWithSouth(entry)*90+ (withSouthEntry(entry, choice)== Direction.WEST ? -90: 0));
+        prototype.rotate(withSouthEntry(entry, choice) != Direction.WEST ? -diffWithSouth(entry)*90 : (-diffWithSouth(entry)-1)*90);
     }
 
     protected static String selectFile(Direction direction){
