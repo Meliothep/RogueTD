@@ -18,4 +18,12 @@ public class EntityFactory implements com.almasb.fxgl.entity.EntityFactory {
                 .setPosition(data.getX(), data.getY(), data.getZ())
                 .build();
     }
+
+    @Spawns(value = "Base")
+    public Entity newBase(SpawnData data) throws IOException {
+        return new TileBuilder().withEntryIn(Direction.EAST)
+                .addValidDirections(Direction.WEST)
+                .setPosition(data.getX(), data.getY(), data.getZ())
+                .build();
+    }
 }
