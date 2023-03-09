@@ -1,11 +1,11 @@
-package game.objects.tile.cell;
+package game.objects.cell;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.shape.Box;
 
 public abstract class Cell {
-    private Point3D origin;
+    private final Point3D origin;
 
     protected Box box;
 
@@ -20,7 +20,7 @@ public abstract class Cell {
         return origin;
     }
 
-    public Node getbox() {
+    public Node getBox() {
         return box;
     }
 }

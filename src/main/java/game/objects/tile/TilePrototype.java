@@ -2,8 +2,8 @@ package game.objects.tile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import game.objects.tile.cell.FreeCell;
-import game.objects.tile.cell.WayCell;
+import game.objects.cell.FreeCell;
+import game.objects.cell.WayCell;
 import javafx.geometry.Point3D;
 
 import java.io.IOException;

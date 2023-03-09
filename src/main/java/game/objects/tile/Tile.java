@@ -1,9 +1,9 @@
 package game.objects.tile;
 
 import com.almasb.fxgl.entity.Entity;
-import game.objects.tile.cell.Cell;
-import game.objects.tile.cell.FreeCell;
-import game.objects.tile.cell.WayCell;
+import game.objects.cell.Cell;
+import game.objects.cell.FreeCell;
+import game.objects.cell.WayCell;
 
 import java.util.ArrayList;
 import java.util.List;

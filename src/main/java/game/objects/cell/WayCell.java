@@ -1,4 +1,4 @@
-package game.objects.tile.cell;
+package game.objects.cell;
 
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;

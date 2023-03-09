@@ -53,10 +53,12 @@ public class RogueTD extends GameApplication {
         getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
 
-        SpawnData data = new SpawnData(new Point3D(0, 0, 0));
+        SpawnData data = new SpawnData(new Point3D(2.8, 0, 0));
         data.put("entry", Direction.SOUTH);
         data.put("validDirections", new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
         spawn("TILE", data);
+
+        spawn("BASE", 0, 0, 0);
 
     }
 

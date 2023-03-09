@@ -2,7 +2,7 @@ package game.objects.tile;
 
 import game.EntityType;
 import game.exceptions.TileBuilderException;
-import game.objects.tile.cell.Cell;
+import game.objects.cell.Cell;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 
@@ -66,7 +66,7 @@ public class TileBuilder {
             tile.setType(EntityType.TILE);
 
             for (Cell cell : tile.getCells()) {
-                tile.getViewComponent().addChild(cell.getbox());
+                tile.getViewComponent().addChild(cell.getBox());
             }
             return tile;
         } catch (IOException e) {
