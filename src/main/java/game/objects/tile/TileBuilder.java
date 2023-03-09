@@ -1,9 +1,9 @@
 package game.objects.tile;
 
 import game.EntityType;
-import game.Utils.Direction;
 import game.exceptions.TileBuilderException;
 import game.objects.tile.cell.Cell;
+import game.utils.Direction;
 import javafx.geometry.Point3D;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static game.Utils.Utils.randomIntBetween;
+import static game.utils.Utils.randomIntBetween;
 
 public class TileBuilder {
     private Direction entry;
@@ -108,6 +108,6 @@ public class TileBuilder {
             this.directions = Arrays.stream(directions).toList();
         }
 
-        public final List<Direction> directions;
+        protected final List<Direction> directions;
     }
 }

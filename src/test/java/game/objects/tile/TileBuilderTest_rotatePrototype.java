@@ -1,6 +1,6 @@
 package game.objects.tile;
 
-import game.Utils.Direction;
+import game.utils.Direction;
 import javafx.geometry.Point3D;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -10,28 +10,12 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TileBuilderTest_rotatePrototype {
-    private final List<Point3D> rightAngle = Arrays.asList(
-            new Point3D(1.2, 0, 0),
-            new Point3D(1.2, 0, 0.4),
-            new Point3D(1.2, 0, 0.8),
-            new Point3D(1.2, 0, 1.2),
-            new Point3D(1.6, 0, 1.2),
-            new Point3D(2, 0, 1.2),
-            new Point3D(2.4, 0, 1.2)
-    );
-    private final List<Point3D> straight = Arrays.asList(
-            new Point3D(1.2, 0, 0),
-            new Point3D(1.2, 0, 0.4),
-            new Point3D(1.2, 0, 0.8),
-            new Point3D(1.2, 0, 1.2),
-            new Point3D(1.2, 0, 1.6),
-            new Point3D(1.2, 0, 2),
-            new Point3D(1.2, 0, 2.4)
-    );
+class TileBuilderTest_rotatePrototype {
+    private final List<Point3D> rightAngle = Arrays.asList(new Point3D(1.2, 0, 0), new Point3D(1.2, 0, 0.4), new Point3D(1.2, 0, 0.8), new Point3D(1.2, 0, 1.2), new Point3D(1.6, 0, 1.2), new Point3D(2, 0, 1.2), new Point3D(2.4, 0, 1.2));
+    private final List<Point3D> straight = Arrays.asList(new Point3D(1.2, 0, 0), new Point3D(1.2, 0, 0.4), new Point3D(1.2, 0, 0.8), new Point3D(1.2, 0, 1.2), new Point3D(1.2, 0, 1.6), new Point3D(1.2, 0, 2), new Point3D(1.2, 0, 2.4));
 
     @Test
-    public void rotatePrototype_rightSE() {
+    void rotatePrototype_rightSE() {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -41,17 +25,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_leftSW() {
+    void rotatePrototype_leftSW() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 0),
-                new Point3D(1.2, 0, 0.4),
-                new Point3D(1.2, 0, 0.8),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 0), new Point3D(1.2, 0, 0.4), new Point3D(1.2, 0, 0.8), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -61,17 +37,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_rightEN() {
+    void rotatePrototype_rightEN() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(1.6, 0, 1.2),
-                new Point3D(2, 0, 1.2),
-                new Point3D(2.4, 0, 1.2),
-                new Point3D(1.2, 0, 2.4),
-                new Point3D(1.2, 0, 2),
-                new Point3D(1.2, 0, 1.6),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(1.6, 0, 1.2), new Point3D(2, 0, 1.2), new Point3D(2.4, 0, 1.2), new Point3D(1.2, 0, 2.4), new Point3D(1.2, 0, 2), new Point3D(1.2, 0, 1.6), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -81,7 +49,7 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_leftES() {
+    void rotatePrototype_leftES() {
         //initialize
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
@@ -92,17 +60,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_rightNW() {
+    void rotatePrototype_rightNW() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 2.4),
-                new Point3D(1.2, 0, 2),
-                new Point3D(1.2, 0, 1.6),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 2.4), new Point3D(1.2, 0, 2), new Point3D(1.2, 0, 1.6), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -112,17 +72,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_leftNE() {
+    void rotatePrototype_leftNE() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(1.6, 0, 1.2),
-                new Point3D(2, 0, 1.2),
-                new Point3D(2.4, 0, 1.2),
-                new Point3D(1.2, 0, 2.4),
-                new Point3D(1.2, 0, 2),
-                new Point3D(1.2, 0, 1.6),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(1.6, 0, 1.2), new Point3D(2, 0, 1.2), new Point3D(2.4, 0, 1.2), new Point3D(1.2, 0, 2.4), new Point3D(1.2, 0, 2), new Point3D(1.2, 0, 1.6), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -132,17 +84,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_rightWS() {
+    void rotatePrototype_rightWS() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 0),
-                new Point3D(1.2, 0, 0.4),
-                new Point3D(1.2, 0, 0.8),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 0), new Point3D(1.2, 0, 0.4), new Point3D(1.2, 0, 0.8), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -152,17 +96,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_leftWN() {
+    void rotatePrototype_leftWN() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 2.4),
-                new Point3D(1.2, 0, 2),
-                new Point3D(1.2, 0, 1.6),
-                new Point3D(1.2, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 2.4), new Point3D(1.2, 0, 2), new Point3D(1.2, 0, 1.6), new Point3D(1.2, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
@@ -172,7 +108,7 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_strSN() {
+    void rotatePrototype_strSN() {
         //initialize
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
@@ -183,7 +119,7 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_strNS() {
+    void rotatePrototype_strNS() {
         //initialize
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
@@ -195,17 +131,9 @@ public class TileBuilderTest_rotatePrototype {
 
 
     @Test
-    public void rotatePrototype_strWE() {
+    void rotatePrototype_strWE() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 1.2),
-                new Point3D(1.6, 0, 1.2),
-                new Point3D(2, 0, 1.2),
-                new Point3D(2.4, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 1.2), new Point3D(1.6, 0, 1.2), new Point3D(2, 0, 1.2), new Point3D(2.4, 0, 1.2));
 
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
@@ -216,17 +144,9 @@ public class TileBuilderTest_rotatePrototype {
     }
 
     @Test
-    public void rotatePrototype_strEW() {
+    void rotatePrototype_strEW() {
         //initialize
-        List<Point3D> result = Arrays.asList(
-                new Point3D(0, 0, 1.2),
-                new Point3D(0.4, 0, 1.2),
-                new Point3D(0.8, 0, 1.2),
-                new Point3D(1.2, 0, 1.2),
-                new Point3D(1.6, 0, 1.2),
-                new Point3D(2, 0, 1.2),
-                new Point3D(2.4, 0, 1.2)
-        );
+        List<Point3D> result = Arrays.asList(new Point3D(0, 0, 1.2), new Point3D(0.4, 0, 1.2), new Point3D(0.8, 0, 1.2), new Point3D(1.2, 0, 1.2), new Point3D(1.6, 0, 1.2), new Point3D(2, 0, 1.2), new Point3D(2.4, 0, 1.2));
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
         //act

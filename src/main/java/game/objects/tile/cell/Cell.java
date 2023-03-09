@@ -9,7 +9,7 @@ public abstract class Cell {
 
     protected Box box;
 
-    public Cell(Point3D origin, Box box) {
+    protected Cell(Point3D origin, Box box) {
         this.origin = origin;
         this.box = box;
         box.setTranslateX(origin.getX());

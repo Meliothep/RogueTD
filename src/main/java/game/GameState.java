@@ -1,15 +1,16 @@
 package game;
 
 public class GameState {
-    private static GameState INSTANCE;
+    private static GameState instance;
 
-    private GameState(){
+    private GameState() {
 
     }
-    public static GameState getInstance(){
-        if(INSTANCE == null){
-            INSTANCE = new GameState();
+
+    public static GameState getInstance() {
+        if (instance == null) {
+            instance = new GameState();
         }
-        return INSTANCE;
+        return instance;
     }
 }
