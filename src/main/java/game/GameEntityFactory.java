@@ -10,7 +10,7 @@ import game.utils.Direction;
 
 import java.util.List;
 
-public class RogueTDEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
+public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     private static final String entryField = "entry";
     private static final String validDirectionsField = "validDirections";
 

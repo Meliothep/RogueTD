@@ -50,7 +50,7 @@ public class RogueTD extends GameApplication {
 
     @Override
     protected void initGame() {
-        getGameWorld().addEntityFactory(new RogueTDEntityFactory());
+        getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
 
         SpawnData data = new SpawnData(new Point3D(0, 0, 0));
