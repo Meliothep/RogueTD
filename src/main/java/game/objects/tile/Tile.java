@@ -9,21 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Tile  extends Entity {
+public class Tile extends Entity {
     private List<FreeCell> freeCells;
     private List<WayCell> wayCells;
 
-    public Tile(){
+    public Tile() {
         freeCells = new ArrayList<>();
         wayCells = new ArrayList<>();
     }
 
-    public void addFreeCell(FreeCell cell){ freeCells.add(cell); }
-    public void addWayCell(WayCell cell){ wayCells.add(cell); }
+    public void addFreeCell(FreeCell cell) {
+        freeCells.add(cell);
+    }
 
-    public List<FreeCell> getFreeCells() { return freeCells; }
+    public void addWayCell(WayCell cell) {
+        wayCells.add(cell);
+    }
 
-    public List<WayCell> getWayCells() { return wayCells; }
+    public List<FreeCell> getFreeCells() {
+        return freeCells;
+    }
 
-    public List<Cell> getCells() { return Stream.concat(freeCells.stream(), wayCells.stream()).toList(); }
+    public List<WayCell> getWayCells() {
+        return wayCells;
+    }
+
+    public List<Cell> getCells() {
+        return Stream.concat(freeCells.stream(), wayCells.stream()).toList();
+    }
 }

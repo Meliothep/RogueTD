@@ -3,28 +3,16 @@ package game;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Camera3D;
-import com.almasb.fxgl.core.math.FXGLMath;
-import com.almasb.fxgl.core.serialization.Bundle;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.GameWorld;
 import com.almasb.fxgl.entity.SpawnData;
-import com.almasb.fxgl.input.Input;
-import com.almasb.fxgl.input.UserAction;
-import com.almasb.fxgl.multiplayer.MultiplayerService;
-import com.almasb.fxgl.net.Connection;
+import game.Utils.Direction;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Point3D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
@@ -75,8 +63,12 @@ public class RogueTD extends GameApplication {
     protected void initGame() {
         getGameWorld().addEntityFactory(new EntityFactory());
         cameraSetup();
-        Entity cell = spawn("TILE", new Point3D(0, 0, 0));
-        System.out.println("cell : " + cell.getPosition3D());
+
+        SpawnData data = new SpawnData(new Point3D(0, 0, 0));
+        data.put("entry", Direction.SOUTH);
+        data.put("validDirections", new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
+        spawn("TILE", data);
+
     }
 
     protected void cameraSetup(){

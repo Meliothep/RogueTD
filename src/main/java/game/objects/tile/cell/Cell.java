@@ -1,6 +1,5 @@
 package game.objects.tile.cell;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.shape.Box;
@@ -10,7 +9,7 @@ public abstract class Cell {
 
     protected Box box;
 
-    public Cell(Point3D origin, Box box){
+    public Cell(Point3D origin, Box box) {
         this.origin = origin;
         this.box = box;
         box.setTranslateX(origin.getX());

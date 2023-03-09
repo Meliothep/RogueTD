@@ -92,7 +92,7 @@ public class TilePrototypeTest {
         TilePrototype prototyp = new TilePrototype();
         prototyp.setWayCells(rightAngle);
         //act
-        Tile tile = prototyp.build();
+        Tile tile = prototyp.getTile();
         //prepare
         List<Point3D> waycellsOrigins = new ArrayList<>();
         for (WayCell wc: tile.getWayCells()) {
