@@ -1,4 +1,4 @@
-package game.objects.tile;
+package game.entities.tile;
 
 import game.utils.Direction;
 import javafx.geometry.Point3D;

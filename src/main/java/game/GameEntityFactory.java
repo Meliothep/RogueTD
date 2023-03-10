@@ -3,10 +3,11 @@ package game;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import game.entities.Base;
+import game.entities.ExpandButton;
+import game.entities.tile.TileBuilder;
 import game.exceptions.InvalidSpawnDataException;
 import game.exceptions.TileBuilderException;
-import game.objects.Base;
-import game.objects.tile.TileBuilder;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 
@@ -31,8 +32,11 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
 
     @Spawns(value = "BASE")
     public Entity newBase(SpawnData data) {
-
         return new Base(new Point3D(data.getX(), data.getY(), data.getZ()));
+    }
 
+    @Spawns(value = "EXPANDBUTTON")
+    public Entity newButton(SpawnData data) {
+        return new ExpandButton(new Point3D(data.getX(), data.getY(), data.getZ()));
     }
 }

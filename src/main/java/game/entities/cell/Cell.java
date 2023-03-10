@@ -1,4 +1,4 @@
-package game.objects.cell;
+package game.entities.cell;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Node;

@@ -1,6 +1,6 @@
-package game.objects.tile;
+package game.entities.tile;
 
-import game.objects.cell.WayCell;
+import game.entities.cell.WayCell;
 import javafx.geometry.Point3D;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;

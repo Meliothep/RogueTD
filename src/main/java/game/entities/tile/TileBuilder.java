@@ -1,8 +1,9 @@
-package game.objects.tile;
+package game.entities.tile;
 
 import game.EntityType;
+import game.entities.cell.Cell;
+import game.eventhandlers.FreeCellClickHandler;
 import game.exceptions.TileBuilderException;
-import game.objects.cell.Cell;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 
@@ -63,6 +64,7 @@ public class TileBuilder {
             rotatePrototype(prototype, entry, choice);
             Tile tile = prototype.getTile();
             tile.setPosition3D(position);
+            tile.getFreeCells().forEach((i) -> i.setListener(new FreeCellClickHandler(i, tile.getPosition3D())));
             tile.setType(EntityType.TILE);
 
             for (Cell cell : tile.getCells()) {

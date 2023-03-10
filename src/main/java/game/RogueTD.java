@@ -60,6 +60,8 @@ public class RogueTD extends GameApplication {
 
         spawn("BASE", 0, 0, 0);
 
+        spawn("EXPANDBUTTON", 1, 0, 3.4);
+
     }
 
     protected void cameraSetup() {

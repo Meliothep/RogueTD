@@ -1,9 +1,10 @@
-package game.objects;
+package game.entities;
 
 import com.almasb.fxgl.entity.Entity;
 import game.EntityType;
-import game.objects.cell.FreeCell;
-import game.objects.cell.WayCell;
+import game.entities.cell.FreeCell;
+import game.entities.cell.WayCell;
+import game.eventhandlers.FreeCellClickHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -22,21 +23,8 @@ public class Base extends Entity {
         setView();
     }
 
-    private void addGroundBoxToView(Point3D origin) {
-        Box box = new Box(0.4, 0.4, 0.4);
-        box.setTranslateX(origin.getX());
-        box.setTranslateZ(origin.getZ());
-        box.setMaterial(new PhongMaterial(Color.valueOf("#65cd50")));
-        getViewComponent().addChild(box);
-    }
-
     private void setView() {
         List<Point3D> origins = new ArrayList<>();
-
-        origins.add(new Point3D(0.4, 0, 2));
-        origins.add(new Point3D(0.4, 0, 0.4));
-        origins.add(new Point3D(2, 0, 2));
-        origins.add(new Point3D(2, 0, 0.4));
 
         origins.add(new Point3D(0.8, 0, 0.8));
         origins.add(new Point3D(0.8, 0, 1.2));
@@ -49,9 +37,6 @@ public class Base extends Entity {
         origins.add(new Point3D(1.6, 0, 0.8));
         origins.add(new Point3D(1.6, 0, 1.2));
         origins.add(new Point3D(1.6, 0, 1.6));
-
-        //add ground cell (just boxes)
-        origins.forEach(this::addGroundBoxToView);
 
         //add wayCells
         Point3D point = new Point3D(1.2, 0, 2);
@@ -70,11 +55,17 @@ public class Base extends Entity {
                 point = new Point3D(x, 0, z);
                 if (!origins.contains(point)) {
                     origins.add(point);
-                    getViewComponent().addChild(new FreeCell(point, 1).getBox());
+                    FreeCell cell = new FreeCell(point, 1);
+                    cell.setListener(new FreeCellClickHandler(cell, this.getPosition3D()));
+                    getViewComponent().addChild(cell.getBox());
                 }
             }
         }
-
+        Box box = new Box(1.2, 1.5, 1.2);
+        box.setTranslateX(1.2);
+        box.setTranslateZ(1.2);
+        box.setTranslateY(-1.5 / 2);
+        box.setMaterial(new PhongMaterial(Color.valueOf("#1e1f22")));
+        getViewComponent().addChild(box);
     }
-
 }
