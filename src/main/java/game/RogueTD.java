@@ -15,9 +15,6 @@ import java.util.List;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class RogueTD extends GameApplication {
     private Camera3D camera;
 
@@ -60,7 +57,7 @@ public class RogueTD extends GameApplication {
 
         spawn("BASE", 0, 0, 0);
 
-        spawn("EXPANDBUTTON", 1, 0, 3.4);
+        spawn("EXPANDBUTTON", 1.2, -0.3, 3.4);
 
     }
 
