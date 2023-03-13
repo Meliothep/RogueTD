@@ -4,6 +4,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import game.entities.ExpandButton;
 import game.entities.Tower;
@@ -44,6 +45,10 @@ public class RogueTD extends GameApplication {
         return (ExpandButton) spawn("EXPANDBUTTON", data);
     }
 
+    public static void despawnEntity(Entity entity) {
+        getGameWorld().removeEntity(entity);
+    }
+
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.set3D(true);
@@ -74,6 +79,8 @@ public class RogueTD extends GameApplication {
         getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
         Tile tile = spawnTile(new Point3D(0, 0, 2.8), Direction.SOUTH, new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
         spawn("BASE", 0, 0, 0);
+        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
+        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 2.8));
         spawnExpandButton(tile);
 
     }

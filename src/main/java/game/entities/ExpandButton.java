@@ -7,6 +7,8 @@ import game.eventhandlers.ExpandButtonClickHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.shape.Box;
 
+import static game.utils.Utils.round;
+
 public class ExpandButton extends Entity {
     private Box crossx;
     private Box crossy;
@@ -18,6 +20,9 @@ public class ExpandButton extends Entity {
     }
 
     public static ExpandButton fromTile(Tile tile) {
+        if (tile.getDirection() == null)
+            //TODO un truc a faire
+            return null;
         Point3D buttonCoord = new Point3D(0, 0, 0);
         Point3D nextTileCoord = new Point3D(0, 0, 0);
         switch (tile.getDirection()) {
@@ -38,9 +43,9 @@ public class ExpandButton extends Entity {
                 nextTileCoord = new Point3D(tile.getPosition3D().getX(), 0, tile.getPosition3D().getZ() - 2.8);
             }
         }
-
+        nextTileCoord = new Point3D(round(nextTileCoord.getX(), 1), 0, round(nextTileCoord.getZ(), 1));
         ExpandButton button = new ExpandButton(buttonCoord);
-        button.setHandler(new ExpandButtonClickHandler(button, nextTileCoord));
+        button.setHandler(new ExpandButtonClickHandler(button, nextTileCoord, tile.getDirection()));
         return button;
     }
 

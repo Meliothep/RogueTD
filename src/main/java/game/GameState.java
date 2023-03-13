@@ -25,6 +25,14 @@ public class GameState {
         return instance;
     }
 
+    public List<Point3D> getCheckPoints() {
+        return checkPoints;
+    }
+
+    public List<Point3D> getTileOrigins() {
+        return tileOrigins;
+    }
+
     public void addCheckPoint(Point3D point3D) {
         if (!checkPoints.contains(point3D))
             checkPoints.add(point3D);
