@@ -40,7 +40,7 @@ public class ExpandButton extends Entity {
         }
 
         ExpandButton button = new ExpandButton(buttonCoord);
-        button.setHandler(new ExpandButtonClickHandler(nextTileCoord));
+        button.setHandler(new ExpandButtonClickHandler(button, nextTileCoord));
         return button;
     }
 

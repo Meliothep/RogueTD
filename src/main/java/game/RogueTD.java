@@ -12,6 +12,7 @@ import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class RogueTD extends GameApplication {
     protected void initGame() {
         getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
-
+        getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
         Tile tile = spawnTile(new Point3D(0, 0, 2.8), Direction.SOUTH, new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
         spawn("BASE", 0, 0, 0);
         spawnExpandButton(tile);
