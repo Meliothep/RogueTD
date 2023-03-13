@@ -2,7 +2,7 @@ package game.eventhandlers;
 
 import game.RogueTD;
 import game.entities.Tower;
-import game.entities.cell.FreeCell;
+import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseEvent;

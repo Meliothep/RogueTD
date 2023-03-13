@@ -2,8 +2,7 @@ package game.entities.tile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import game.entities.cell.FreeCell;
-import game.entities.cell.WayCell;
+import game.objects.cell.FreeCell;
 import javafx.geometry.Point3D;
 
 import java.io.IOException;
@@ -18,6 +17,12 @@ import static game.utils.Utils.round;
 class TilePrototype {
     private List<Point3D> wayCells = new ArrayList<>();
 
+    public static TilePrototype fromJson(String jsonName) throws IOException {
+
+        InputStream json = TilePrototype.class.getClassLoader().getResourceAsStream("assets/tiles/" + jsonName + ".json");
+        return new ObjectMapper().readValue(json, TilePrototype.class);
+    }
+
     public List<Point3D> getWayCells() {
         return wayCells;
     }
@@ -29,7 +34,6 @@ class TilePrototype {
     public Tile getTile() {
         Tile tile = new Tile();
         Random rn = new Random();
-
         for (int i = 0; i <= 6; i++) {
             double x = round(i * 0.4, 1);
             for (int j = 0; j <= 6; j++) {
@@ -39,18 +43,10 @@ class TilePrototype {
                     int multiplier = 1 + (rn.nextInt(3) == 0 ? 1 : 0);
                     multiplier = (multiplier == 2) ? multiplier + (rn.nextInt(5) == 0 ? 1 : 0) : multiplier;
                     tile.addFreeCell(new FreeCell(currentPoint, multiplier));
-                } else {
-                    tile.addWayCell(new WayCell(currentPoint));
                 }
             }
         }
         return tile;
-    }
-
-    public static TilePrototype fromJson(String jsonName) throws IOException {
-
-        InputStream json = TilePrototype.class.getClassLoader().getResourceAsStream("assets/tiles/" + jsonName + ".json");
-        return new ObjectMapper().readValue(json, TilePrototype.class);
     }
 
     public void rotate(double angle) {

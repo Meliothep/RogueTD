@@ -1,7 +1,7 @@
 package game.eventhandlers;
 
 import game.entities.Tower;
-import game.entities.cell.FreeCell;
+import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

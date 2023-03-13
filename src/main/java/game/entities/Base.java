@@ -2,9 +2,8 @@ package game.entities;
 
 import com.almasb.fxgl.entity.Entity;
 import game.EntityType;
-import game.entities.cell.FreeCell;
-import game.entities.cell.WayCell;
 import game.eventhandlers.FreeCellClickHandler;
+import game.objects.cell.FreeCell;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -39,14 +38,17 @@ public class Base extends Entity {
         origins.add(new Point3D(1.6, 0, 1.6));
 
         //add wayCells
-        Point3D point = new Point3D(1.2, 0, 2);
-        origins.add(point);
-        getViewComponent().addChild(new WayCell(point).getBox());
+        Box ground = new Box(2.8, 0.2, 2.8);
+        ground.setTranslateY(-0.1);
+        ground.setMaterial(new PhongMaterial(Color.valueOf("#feffb1")));
+        ground.setTranslateX(1.2);
+        ground.setTranslateZ(1.2);
+        getViewComponent().addChild(ground);
 
-        point = new Point3D(1.2, 0, 2.4);
-        origins.add(point);
-        getViewComponent().addChild(new WayCell(point).getBox());
+        origins.add(new Point3D(1.2, 0, 2));
+        origins.add(new Point3D(1.2, 0, 2.4));
 
+        Point3D point;
         // add freeCells
         for (int i = 0; i <= 6; i++) {
             double x = round(i * 0.4, 1);

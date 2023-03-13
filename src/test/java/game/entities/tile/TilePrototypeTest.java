@@ -1,13 +1,11 @@
 package game.entities.tile;
 
-import game.entities.cell.WayCell;
 import javafx.geometry.Point3D;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -96,13 +94,7 @@ class TilePrototypeTest {
         prototyp.setWayCells(rightAngle);
         //act
         Tile tile = prototyp.getTile();
-        //prepare
-        List<Point3D> waycellsOrigins = new ArrayList<>();
-        for (WayCell wc : tile.getWayCells()) {
-            waycellsOrigins.add(wc.getOrigin());
-        }
         //assert
-        assertThat(waycellsOrigins, Matchers.containsInAnyOrder(rightAngle.toArray()));
-        assertThat(tile.getCells().size() - tile.getWayCells().size(), Matchers.equalTo(49 - rightAngle.size()));
+        assertThat(tile.getFreeCells().size(), Matchers.equalTo(49 - rightAngle.size()));
     }
 }

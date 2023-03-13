@@ -1,22 +1,36 @@
-package game.entities.cell;
+package game.objects.cell;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
-public class FreeCell extends Cell {
+public class FreeCell {
+    private final Point3D origin;
+    protected Box box;
     int multiplier;
-    private Point3D origin;
     private boolean hasTower;
 
+
     public FreeCell(Point3D origin, int multiplier) {
-        super(origin, new Box(0.4, 0.4 + 0.2 * (multiplier - 1), 0.4));
-        box.setTranslateY(-(0.4 + 0.2 * (multiplier - 1)) / 2);
+        this.origin = origin;
+        this.box = new Box(0.4, 0.2 * multiplier, 0.4);
+        box.setTranslateX(origin.getX());
+        box.setTranslateZ(origin.getZ());
+        box.setTranslateY((-(0.2 * multiplier) / 2) - 0.2);
         box.setMaterial(new PhongMaterial(Color.valueOf("#65cd50")));
         this.multiplier = multiplier;
+    }
+
+    public Point3D getOrigin() {
+        return origin;
+    }
+
+    public Node getBox() {
+        return box;
     }
 
     public void setHandler(EventHandler<MouseEvent> handler) {

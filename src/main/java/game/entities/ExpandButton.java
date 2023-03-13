@@ -26,7 +26,7 @@ public class ExpandButton extends Entity {
                 nextTileCoord = new Point3D(tile.getPosition3D().getX() + 2.8, 0, tile.getPosition3D().getZ());
             }
             case WEST -> {
-                buttonCoord = new Point3D(tile.getPosition3D().getX() - 3.2, -0.3, tile.getPosition3D().getZ() + 1.2);
+                buttonCoord = new Point3D(tile.getPosition3D().getX() - 0.8, -0.3, tile.getPosition3D().getZ() + 1.2);
                 nextTileCoord = new Point3D(tile.getPosition3D().getX() - 2.8, 0, tile.getPosition3D().getZ());
             }
             case NORTH -> {
@@ -34,7 +34,7 @@ public class ExpandButton extends Entity {
                 nextTileCoord = new Point3D(tile.getPosition3D().getX(), 0, tile.getPosition3D().getZ() + 2.8);
             }
             case SOUTH -> {
-                buttonCoord = new Point3D(tile.getPosition3D().getX() + 1.2, -0.3, tile.getPosition3D().getZ() - 3.2);
+                buttonCoord = new Point3D(tile.getPosition3D().getX() + 1.2, -0.3, tile.getPosition3D().getZ() - 0.8);
                 nextTileCoord = new Point3D(tile.getPosition3D().getX(), 0, tile.getPosition3D().getZ() - 2.8);
             }
         }
