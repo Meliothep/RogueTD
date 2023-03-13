@@ -15,9 +15,34 @@ import java.util.List;
 import static game.utils.Utils.randomIntBetween;
 
 public class TileBuilder {
-    private Direction entry;
     private final List<Direction> validDirections = new ArrayList<>();
+    private Direction entry;
     private Point3D position;
+
+    protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice) {
+        prototype.rotate(withSouthEntry(entry, choice) != Direction.WEST ? -diffWithSouth(entry) * 90 : (-diffWithSouth(entry) - 1) * 90);
+    }
+
+    protected static String selectFile(Direction direction) {
+        List<JsonDirections> validFiles = new ArrayList<>();
+        for (JsonDirections json : JsonDirections.values()) {
+            if (json.directions.contains(direction)) {
+                validFiles.add(json);
+            }
+        }
+        return validFiles.size() > 1 ?
+                validFiles.get(randomIntBetween(1, validFiles.size()) - 1).name() :
+                validFiles.get(0).name();
+    }
+
+    protected static Direction withSouthEntry(Direction entry, Direction exit) {
+        int index = Arrays.stream(Direction.values()).toList().indexOf(exit) + diffWithSouth(entry);
+        return index >= 0 ? Arrays.stream(Direction.values()).toList().get(index % 4) : Arrays.stream(Direction.values()).toList().get(4 + index);
+    }
+
+    private static int diffWithSouth(Direction direction) {
+        return Arrays.stream(Direction.values()).toList().indexOf(Direction.SOUTH) - Arrays.stream(Direction.values()).toList().indexOf(direction);
+    }
 
     public TileBuilder withEntryIn(Direction direction) {
         this.entry = direction;
@@ -64,9 +89,10 @@ public class TileBuilder {
             rotatePrototype(prototype, entry, choice);
             Tile tile = prototype.getTile();
             tile.setPosition3D(position);
-            tile.getFreeCells().forEach((i) -> i.setListener(new FreeCellClickHandler(i, tile.getPosition3D())));
+            tile.getFreeCells().forEach((i) -> i.setHandler(new FreeCellClickHandler(i, tile.getPosition3D())));
             tile.setType(EntityType.TILE);
-
+            tile.setDirection(choice);
+            tile.setEntry(entry);
             for (Cell cell : tile.getCells()) {
                 tile.getViewComponent().addChild(cell.getBox());
             }
@@ -77,39 +103,14 @@ public class TileBuilder {
         return null;
     }
 
-    protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice) {
-        prototype.rotate(withSouthEntry(entry, choice) != Direction.WEST ? -diffWithSouth(entry) * 90 : (-diffWithSouth(entry) - 1) * 90);
-    }
-
-    protected static String selectFile(Direction direction) {
-        List<JsonDirections> validFiles = new ArrayList<>();
-        for (JsonDirections json : JsonDirections.values()) {
-            if (json.directions.contains(direction)) {
-                validFiles.add(json);
-            }
-        }
-        return validFiles.size() > 1 ?
-                validFiles.get(randomIntBetween(1, validFiles.size()) - 1).name() :
-                validFiles.get(0).name();
-    }
-
-    protected static Direction withSouthEntry(Direction entry, Direction exit) {
-        int index = Arrays.stream(Direction.values()).toList().indexOf(exit) + diffWithSouth(entry);
-        return index >= 0 ? Arrays.stream(Direction.values()).toList().get(index % 4) : Arrays.stream(Direction.values()).toList().get(4 + index);
-    }
-
-    private static int diffWithSouth(Direction direction) {
-        return Arrays.stream(Direction.values()).toList().indexOf(Direction.SOUTH) - Arrays.stream(Direction.values()).toList().indexOf(direction);
-    }
-
     enum JsonDirections {
         straight(Direction.NORTH),
         rightAngle(Direction.EAST, Direction.WEST);
 
+        protected final List<Direction> directions;
+
         JsonDirections(Direction... directions) {
             this.directions = Arrays.stream(directions).toList();
         }
-
-        protected final List<Direction> directions;
     }
 }

@@ -56,7 +56,7 @@ public class Base extends Entity {
                 if (!origins.contains(point)) {
                     origins.add(point);
                     FreeCell cell = new FreeCell(point, 1);
-                    cell.setListener(new FreeCellClickHandler(cell, this.getPosition3D()));
+                    cell.setHandler(new FreeCellClickHandler(cell, this.getPosition3D()));
                     getViewComponent().addChild(cell.getBox());
                 }
             }

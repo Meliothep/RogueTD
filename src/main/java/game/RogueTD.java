@@ -5,6 +5,9 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.SpawnData;
+import game.entities.ExpandButton;
+import game.entities.Tower;
+import game.entities.tile.Tile;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
@@ -20,6 +23,24 @@ public class RogueTD extends GameApplication {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Tile spawnTile(Point3D position, Direction entry, List<Direction> directions) {
+        SpawnData data = new SpawnData(position);
+        data.put("entry", entry);
+        data.put("validDirections", directions);
+        return (Tile) spawn("TILE", data);
+    }
+
+    public static Tower spawnTower(Point3D position) {
+        SpawnData data = new SpawnData(position);
+        return (Tower) spawn("TOWER", data);
+    }
+
+    public static ExpandButton spawnExpandButton(Tile tile) {
+        SpawnData data = new SpawnData();
+        data.put("tile", tile);
+        return (ExpandButton) spawn("EXPANDBUTTON", data);
     }
 
     @Override
@@ -50,14 +71,9 @@ public class RogueTD extends GameApplication {
         getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
 
-        SpawnData data = new SpawnData(new Point3D(2.8, 0, 0));
-        data.put("entry", Direction.SOUTH);
-        data.put("validDirections", new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
-        spawn("TILE", data);
-
+        Tile tile = spawnTile(new Point3D(0, 0, 2.8), Direction.SOUTH, new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
         spawn("BASE", 0, 0, 0);
-
-        spawn("EXPANDBUTTON", 1.2, -0.3, 3.4);
+        spawnExpandButton(tile);
 
     }
 
