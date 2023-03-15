@@ -6,9 +6,6 @@ import game.exceptions.TileBuilderException;
 import game.objects.cell.FreeCell;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,19 +89,13 @@ public class TileBuilder {
             rotatePrototype(prototype, entry, choice);
             Tile tile = prototype.getTile();
             tile.setPosition3D(position);
-            tile.getFreeCells().forEach((i) -> i.setHandler(new FreeCellClickHandler(i, tile.getPosition3D())));
             tile.setType(EntityType.TILE);
             tile.setDirection(choice);
             tile.setEntry(entry);
             for (FreeCell cell : tile.getFreeCells()) {
+                cell.setHandler(new FreeCellClickHandler(cell, tile.getPosition3D()));
                 tile.getViewComponent().addChild(cell.getBox());
             }
-            Box ground = new Box(2.8, 0.2, 2.8);
-            ground.setTranslateY(-0.1);
-            ground.setMaterial(new PhongMaterial(Color.valueOf("#feffb1")));
-            ground.setTranslateX(1.2);
-            ground.setTranslateZ(1.2);
-            tile.getViewComponent().addChild(ground);
             return tile;
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,7 +107,7 @@ public class TileBuilder {
         straight(Direction.NORTH),
         rightAngle(Direction.EAST, Direction.WEST);
 
-        protected final List<Direction> directions;
+        private final List<Direction> directions;
 
         JsonDirections(Direction... directions) {
             this.directions = Arrays.stream(directions).toList();
