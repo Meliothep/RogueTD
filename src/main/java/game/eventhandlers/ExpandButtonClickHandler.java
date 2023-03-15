@@ -40,8 +40,6 @@ public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         RogueTD.despawnEntity(button);
-        System.out.println(findValidDirections(GameState.getInstance().getTileOrigins(), tileCoord));
-        System.out.println(entry.getOposite());
         RogueTD.spawnExpandButton(RogueTD.spawnTile(tileCoord,
                 entry.getOposite(),
                 findValidDirections(GameState.getInstance().getTileOrigins(), tileCoord)));
