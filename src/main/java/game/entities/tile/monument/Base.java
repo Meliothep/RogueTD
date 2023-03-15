@@ -1,9 +1,10 @@
-package game.entities;
+package game.entities.tile.monument;
 
-import com.almasb.fxgl.entity.Entity;
 import game.EntityType;
+import game.entities.tile.Tile;
 import game.eventhandlers.FreeCellClickHandler;
 import game.objects.cell.FreeCell;
+import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -14,11 +15,13 @@ import java.util.List;
 
 import static game.utils.Utils.round;
 
-public class Base extends Entity {
+public class Base extends Tile {
 
     public Base(Point3D position) {
         setType(EntityType.BASE);
         setPosition3D(position);
+        setDirection(Direction.NORTH);
+
         setView();
     }
 

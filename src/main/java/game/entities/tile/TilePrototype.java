@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static game.utils.Utils.rotatePoint;
 import static game.utils.Utils.round;
 
 @JsonDeserialize(using = TileJsonParser.class)
@@ -52,17 +53,7 @@ class TilePrototype {
     public void rotate(double angle) {
         List<Point3D> result = new ArrayList<>();
         for (Point3D point3D : wayCells) {
-            double s = Math.sin(Math.toRadians(angle));
-            double c = Math.cos(Math.toRadians(angle));
-
-            // translate point back to origin:
-            double currentX = point3D.getX() - 1.2;
-            double currentZ = point3D.getZ() - 1.2;
-
-            // rotate point
-            double xnew = currentX * c - currentZ * s;
-            double ynew = currentX * s + currentZ * c;
-            result.add(new Point3D(round(xnew + 1.2, 1), 0, round(ynew + 1.2, 1)));
+            result.add(rotatePoint(point3D, angle));
         }
         wayCells = result;
     }

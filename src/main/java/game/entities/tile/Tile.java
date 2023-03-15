@@ -20,7 +20,6 @@ public class Tile extends Entity {
         freeCells.add(cell);
     }
 
-
     public List<FreeCell> getFreeCells() {
         return freeCells;
     }
