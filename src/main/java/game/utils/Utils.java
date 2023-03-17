@@ -32,7 +32,7 @@ public class Utils {
         // rotate point
         double xnew = currentX * c - currentZ * s;
         double ynew = currentX * s + currentZ * c;
-        return new Point3D(round(xnew + 1.2, 1), 0, round(ynew + 1.2, 1));
+        return new Point3D(round(xnew + 1.2, 1), point3D.getY(), round(ynew + 1.2, 1));
     }
 
 }

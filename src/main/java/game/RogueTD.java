@@ -39,9 +39,12 @@ public class RogueTD extends GameApplication {
         return (Tower) spawn("TOWER", data);
     }
 
-    public static ExpandButton spawnExpandButton(Tile tile) {
+    public static ExpandButton spawnExpandButton(Tile tile) throws Exception {
         SpawnData data = new SpawnData();
         data.put("tile", tile);
+        if (tile.getDirection() == null) {
+            throw new Exception();
+        }
         return (ExpandButton) spawn("EXPANDBUTTON", data);
     }
 
@@ -81,9 +84,12 @@ public class RogueTD extends GameApplication {
         spawn("BASE", 0, 0, 0);
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 2.8));
-        spawnTile(new Point3D(0, 0, 5.6), Direction.NORTH, new ArrayList<Direction>());
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 5.6));
-        spawnExpandButton(tile);
+        try {
+            spawnExpandButton(tile);
+        } catch (Exception ignored) {
+        }
+
 
     }
 
