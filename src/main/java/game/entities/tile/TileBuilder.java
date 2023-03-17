@@ -199,7 +199,9 @@ public class TileBuilder {
 
     enum JsonDirections {
         straight(Direction.NORTH),
-        rightAngle(Direction.EAST, Direction.WEST);
+        rightAngle(Direction.EAST, Direction.WEST),
+        strangeAngle(Direction.EAST, Direction.WEST),
+        zigzag(Direction.NORTH);
 
         private final List<Direction> directions;
 
