@@ -39,4 +39,5 @@ public class Tile extends Entity {
     public void setEntry(Direction entry) {
         this.entry = entry;
     }
+
 }

@@ -19,6 +19,7 @@ public class TileBuilder {
     private Direction entry;
     private Point3D position;
 
+    private Direction choice;
     protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice) {
         prototype.rotate(withSouthEntry(entry, choice) != Direction.WEST ? -diffWithSouth(entry) * 90 : (-diffWithSouth(entry) - 1) * 90);
     }
@@ -75,34 +76,70 @@ public class TileBuilder {
         if (position == null)
             throw new TileBuilderException("The position direction must be set");
 
+        Tile tile = null;
+
         if (validDirections.isEmpty()) {
-            //TODO return tile de fin
-        }
-        Direction choice = validDirections.size() > 1 ?
-                validDirections.get(randomIntBetween(1, validDirections.size()) - 1) :
-                validDirections.get(0);
-
-        String fileName = selectFile(withSouthEntry(entry, choice));
-
-        try {
-            TilePrototype prototype = TilePrototype.fromJson(fileName);
-            rotatePrototype(prototype, entry, choice);
-            Tile tile = prototype.getTile();
-            tile.setPosition3D(position);
-            tile.setType(EntityType.TILE);
-            tile.setDirection(choice);
-            tile.setEntry(entry);
-            for (FreeCell cell : tile.getFreeCells()) {
-                cell.setHandler(new FreeCellClickHandler(cell, tile.getPosition3D()));
-                tile.getViewComponent().addChild(cell.getBox());
+            tile = getPortalTile();
+        }else{
+            try {
+                tile = fromJSon();
+            } catch (IOException e) {
+                throw new TileBuilderException("Problem occured while reading Json, pls verify ressources");
             }
-            return tile;
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return null;
+
+        tile.setPosition3D(position);
+        tile.setType(EntityType.TILE);
+        tile.setDirection(choice);
+        tile.setEntry(entry);
+        addFreeCellsView(tile);
+        return tile;
     }
 
+    private Tile getPortalTile() {
+        choice = null;
+        TilePrototype prototype = new TilePrototype();
+        prototype.setWayCells(List.of(
+                //ways
+                new Point3D(1.2,0,0),
+                new Point3D(1.2,0,0.4),
+                new Point3D(1.2,0,0.8),
+                //portal zone
+                new Point3D(0.4,0,1.2),
+                new Point3D(0.8,0,1.2),
+                new Point3D(1.2,0,1.2),
+                new Point3D(1.6,0,1.2),
+                new Point3D(2,0,1.2)));
+        // LA LIGNE EN DESSOUS
+        rotatePrototype(prototype, Direction.SOUTH, entry);
+        Tile tile = prototype.getTile();
+        if ((Arrays.stream(Direction.values()).toList().indexOf(entry)+1)%2 != 1){
+            //TODO rajoute le monumet a l'horizontal
+        }else{
+            //TODO rajoute le monumet a la vertical
+        }
+        return tile;
+    }
+
+    private Tile fromJSon() throws IOException {
+        calcChoice();
+        String fileName = selectFile(withSouthEntry(entry, choice));
+        TilePrototype prototype = TilePrototype.fromJson(fileName);
+        rotatePrototype(prototype, entry, choice);
+        return prototype.getTile();
+    }
+
+    private void calcChoice(){
+        choice = validDirections.size() > 1 ?
+                validDirections.get(randomIntBetween(1, validDirections.size()) - 1) :
+                validDirections.get(0);
+    }
+    private void addFreeCellsView(Tile tile){
+        for (FreeCell cell : tile.getFreeCells()) {
+            cell.setHandler(new FreeCellClickHandler(cell, tile.getPosition3D()));
+            tile.getViewComponent().addChild(cell.getBox());
+        }
+    }
     enum JsonDirections {
         straight(Direction.NORTH),
         rightAngle(Direction.EAST, Direction.WEST);

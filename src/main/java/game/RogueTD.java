@@ -81,6 +81,8 @@ public class RogueTD extends GameApplication {
         spawn("BASE", 0, 0, 0);
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 2.8));
+        spawnTile(new Point3D(0, 0, 5.6), Direction.NORTH, new ArrayList<Direction>());
+        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 5.6));
         spawnExpandButton(tile);
 
     }
