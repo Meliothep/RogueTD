@@ -90,7 +90,7 @@ public class RogueTD extends GameApplication {
         } catch (Exception ignored) {
         }
 
-
+        spawn("ENEMY", new Point3D(0, -1, 0));
     }
 
     protected void cameraSetup() {
