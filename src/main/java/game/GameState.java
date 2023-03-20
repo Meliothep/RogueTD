@@ -2,12 +2,10 @@ package game;
 
 import game.datas.Way;
 import game.entities.tile.Tile;
+import game.entities.tile.monument.Base;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameState {
     private static GameState instance;
@@ -25,6 +23,29 @@ public class GameState {
             instance = new GameState();
         }
         return instance;
+    }
+
+    public void initWays(Base base) {
+        List<Point3D> list = new Stack<Point3D>();
+        list.add(new Point3D(1.2, -0.3, 1.2));
+        ways.put(base, new Way(list));
+    }
+
+    public Way getWay(Tile tile) {
+        return ways.get(tile);
+    }
+
+    public void addWayPoints(Tile lastTile, Tile tile) {
+        if (ways.containsKey(lastTile)) {
+            Way way = ways.get(lastTile);
+            ways.remove(lastTile);
+            way.addWaypoints(tile.getWayPoints());
+            ways.put(tile, way);
+        } else {
+            Way way = ways.get(lastTile);
+            way.getWaypoints().addAll(tile.getWayPoints());
+            ways.put(tile, way);
+        }
     }
 
     public List<Point3D> getTileOrigins() {

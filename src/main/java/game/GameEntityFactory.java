@@ -3,7 +3,9 @@ package game;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import game.components.Projectile3DComponent;
+import game.components.EnemyComponent;
+import game.datas.EnemyData;
+import game.datas.Way;
 import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
@@ -53,9 +55,16 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     }
 
     @Spawns(value = "ENEMY")
-    public Entity newEnemy(SpawnData data) {
-        var enemy = new Enemy(new Point3D(data.getX(), data.getY(), data.getZ()));
-        enemy.addComponent(new Projectile3DComponent(new Point3D(4, -4, 4), 1));
+    public Entity newEnemy(SpawnData data) throws InvalidSpawnDataException {
+        if (!data.hasKey(tileField) || data.get(tileField) == null || !(data.get(tileField) instanceof Tile))
+            throw new InvalidSpawnDataException("entry must be set in SpawnData");
+        var tile = (Tile) data.get(tileField);
+        var enemy = new Enemy(Enemy.fromTile(tile));
+        var eData = new EnemyData(10, 10, 0.05, 1);
+        var list = GameState.getInstance().getWay(tile).getWaypoints();
+        list.add(Enemy.fromTile(tile));
+        var eComponent = new EnemyComponent(new Way(list), eData);
+        enemy.addComponent(eComponent);
         return enemy;
     }
 }

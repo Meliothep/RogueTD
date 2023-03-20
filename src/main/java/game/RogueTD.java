@@ -6,16 +6,17 @@ import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
 import game.entities.tile.Tile;
+import game.entities.tile.monument.Base;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -46,6 +47,15 @@ public class RogueTD extends GameApplication {
             throw new Exception();
         }
         return (ExpandButton) spawn("EXPANDBUTTON", data);
+    }
+
+    public static Enemy spawnEnemy(Tile tile) throws Exception {
+        SpawnData data = new SpawnData();
+        data.put("tile", tile);
+        if (tile.getDirection() == null) {
+            throw new Exception();
+        }
+        return (Enemy) spawn("ENEMY", data);
     }
 
     public static void despawnEntity(Entity entity) {
@@ -80,17 +90,14 @@ public class RogueTD extends GameApplication {
         getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
         getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
-        Tile tile = spawnTile(new Point3D(0, 0, 2.8), Direction.SOUTH, new ArrayList<Direction>(List.of(Direction.NORTH, Direction.WEST, Direction.EAST)));
-        spawn("BASE", 0, 0, 0);
-        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
-        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 2.8));
 
+        GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
         try {
-            spawnExpandButton(tile);
+            Base base = (Base) spawn("BASE", 0, 0, 0);
+            spawnExpandButton(base);
+            GameState.getInstance().initWays(base);
         } catch (Exception ignored) {
         }
-
-        spawn("ENEMY", new Point3D(0, -1, 0));
     }
 
     protected void cameraSetup() {

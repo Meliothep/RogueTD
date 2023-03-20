@@ -18,9 +18,9 @@ class TileJsonParser extends StdDeserializer<TilePrototype> {
     public TilePrototype deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode root = jsonParser.getCodec().readTree(jsonParser);
         JsonNode wayCells = root.path("wayCells");
-
-        if (!wayCells.isArray())
-            throw new InvalidPropertiesFormatException("Le json ne contient pas de tableau 'wayCells'");
+        JsonNode wayPoints = root.path("wayPoints");
+        if (!wayCells.isArray() || !wayPoints.isArray())
+            throw new InvalidPropertiesFormatException("Le json ne contient pas de tableau 'wayCells' ou 'wayPoints'");
 
         TilePrototype tilePrototyp = new TilePrototype();
 
@@ -29,7 +29,11 @@ class TileJsonParser extends StdDeserializer<TilePrototype> {
             Point3D point3D = new Point3D(origin.path("x").asDouble(), 0, origin.path("z").asDouble());
             tilePrototyp.getWayCells().add(point3D);
         }
-
+        for (JsonNode node : wayPoints) {
+            JsonNode origin = node.path("origin");
+            Point3D point3D = new Point3D(origin.path("x").asDouble(), -.3, origin.path("z").asDouble());
+            tilePrototyp.getWayPoints().add(point3D);
+        }
 
         return tilePrototyp;
     }

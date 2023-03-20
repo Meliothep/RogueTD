@@ -45,7 +45,7 @@ public class ExpandButton extends Entity {
         }
         nextTileCoord = new Point3D(round(nextTileCoord.getX(), 1), 0, round(nextTileCoord.getZ(), 1));
         ExpandButton button = new ExpandButton(buttonCoord);
-        button.setHandler(new ExpandButtonClickHandler(button, nextTileCoord, tile.getDirection()));
+        button.setHandler(new ExpandButtonClickHandler(button, nextTileCoord, tile));
         return button;
     }
 

@@ -20,6 +20,7 @@ import static game.utils.Utils.round;
 @JsonDeserialize(using = TileJsonParser.class)
 class TilePrototype {
     private List<Point3D> wayCells = new ArrayList<>();
+    private List<Point3D> wayPoints = new ArrayList<>();
 
     public static TilePrototype fromJson(String jsonName) throws IOException {
 
@@ -33,6 +34,14 @@ class TilePrototype {
 
     protected void setWayCells(List<Point3D> wayCells) {
         this.wayCells = wayCells;
+    }
+
+    public List<Point3D> getWayPoints() {
+        return wayPoints;
+    }
+
+    protected void setWayPoints(List<Point3D> wayCells) {
+        this.wayPoints = wayCells;
     }
 
     public Tile getTile() {
@@ -56,14 +65,21 @@ class TilePrototype {
         ground.setTranslateX(1.2);
         ground.setTranslateZ(1.2);
         tile.getViewComponent().addChild(ground);
+        tile.setWayPoints(wayPoints);
         return tile;
     }
 
     public void rotate(double angle) {
-        List<Point3D> result = new ArrayList<>();
+        List<Point3D> newWayCells = new ArrayList<>();
+        List<Point3D> newWayPoints = new ArrayList<>();
         for (Point3D point3D : wayCells) {
-            result.add(rotatePoint(point3D, angle));
+            newWayCells.add(rotatePoint(point3D, angle));
         }
-        wayCells = result;
+        for (Point3D point3D : wayPoints) {
+            newWayPoints.add(rotatePoint(point3D, angle));
+        }
+        System.out.println(angle);
+        wayCells = newWayCells;
+        wayPoints = newWayPoints;
     }
 }

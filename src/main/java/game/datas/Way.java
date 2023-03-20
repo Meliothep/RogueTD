@@ -14,6 +14,10 @@ public class Way {
         this.waypoints = waypoints;
     }
 
+    public void addWaypoints(List<Point3D> points) {
+        waypoints.addAll(points);
+    }
+
     public List<Point3D> getWaypoints() {
         return new ArrayList<>(waypoints);
     }

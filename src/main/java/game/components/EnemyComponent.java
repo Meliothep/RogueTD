@@ -5,6 +5,7 @@ import game.datas.EnemyData;
 import game.datas.Way;
 import javafx.geometry.Point3D;
 
+import java.util.Collections;
 import java.util.List;
 
 public class EnemyComponent extends Component {
@@ -15,6 +16,7 @@ public class EnemyComponent extends Component {
 
     public EnemyComponent(Way way, EnemyData data) {
         waypoints = way.getWaypoints();
+        Collections.reverse(waypoints);
         this.data = data;
     }
 
@@ -32,7 +34,6 @@ public class EnemyComponent extends Component {
     @Override
     public void onUpdate(double tpf) {
         double speed = tpf * 60 * data.moveSpeed();
-
         Point3D velocity = nextWaypoint.subtract(entity.getPosition3D())
                 .normalize()
                 .multiply(speed);

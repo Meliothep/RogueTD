@@ -13,6 +13,7 @@ import javafx.scene.shape.Box;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static game.utils.Utils.randomIntBetween;
@@ -26,6 +27,9 @@ public class TileBuilder {
     private Direction choice;
 
     protected static void rotatePrototype(TilePrototype prototype, Direction entry, Direction choice) {
+        if (withSouthEntry(entry, choice) == Direction.WEST) {
+            Collections.reverse(prototype.getWayPoints());
+        }
         prototype.rotate(withSouthEntry(entry, choice) != Direction.WEST ? -diffWithSouth(entry) * 90 : (-diffWithSouth(entry) - 1) * 90);
     }
 
@@ -92,7 +96,9 @@ public class TileBuilder {
                 throw new TileBuilderException("Problem occured while reading Json, pls verify ressources");
             }
         }
-
+        tile.setWayPoints(tile.getWayPoints().stream().map((Point3D it) -> {
+            return new Point3D(position.getX() + it.getX(), position.getY() + it.getY(), position.getZ() + it.getZ());
+        }).toList());
         tile.setPosition3D(position);
         tile.setType(EntityType.TILE);
         tile.setDirection(choice);
