@@ -78,7 +78,6 @@ class TilePrototype {
         for (Point3D point3D : wayPoints) {
             newWayPoints.add(rotatePoint(point3D, angle));
         }
-        System.out.println(angle);
         wayCells = newWayCells;
         wayPoints = newWayPoints;
     }

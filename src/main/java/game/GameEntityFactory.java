@@ -60,7 +60,7 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
             throw new InvalidSpawnDataException("entry must be set in SpawnData");
         var tile = (Tile) data.get(tileField);
         var enemy = new Enemy(Enemy.fromTile(tile));
-        var eData = new EnemyData(10, 10, 0.05, 1);
+        var eData = new EnemyData(10, 10, 0.03, 1);
         var list = GameState.getInstance().getWay(tile).getWaypoints();
         list.add(Enemy.fromTile(tile));
         var eComponent = new EnemyComponent(new Way(list), eData);
