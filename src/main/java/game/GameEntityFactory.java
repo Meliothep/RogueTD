@@ -3,6 +3,8 @@ package game;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import game.components.Projectile3DComponent;
+import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
 import game.entities.tile.Tile;
@@ -48,5 +50,12 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     @Spawns(value = "TOWER")
     public Entity newTower(SpawnData data) {
         return new Tower(new Point3D(data.getX(), data.getY(), data.getZ()));
+    }
+
+    @Spawns(value = "ENEMY")
+    public Entity newEnemy(SpawnData data) {
+        var enemy = new Enemy(new Point3D(data.getX(), data.getY(), data.getZ()));
+        enemy.addComponent(new Projectile3DComponent(new Point3D(4, -4, 4), 1));
+        return enemy;
     }
 }
