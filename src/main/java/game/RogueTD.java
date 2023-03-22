@@ -6,6 +6,7 @@ import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import game.components.EnemyComponent;
 import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
@@ -18,8 +19,11 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static game.datas.Config.*;
+import static game.datas.Vars.*;
 
 public class RogueTD extends GameApplication {
     private Camera3D camera;
@@ -58,10 +62,6 @@ public class RogueTD extends GameApplication {
         return (Enemy) spawn("ENEMY", data);
     }
 
-    public static void despawnEntity(Entity entity) {
-        getGameWorld().removeEntity(entity);
-    }
-
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.set3D(true);
@@ -87,6 +87,8 @@ public class RogueTD extends GameApplication {
 
     @Override
     protected void initGame() {
+        initVarListeners();
+
         getGameWorld().addEntityFactory(new GameEntityFactory());
         cameraSetup();
         getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
@@ -100,6 +102,51 @@ public class RogueTD extends GameApplication {
         }
     }
 
+    private void initVarListeners() {
+        getWorldProperties().<Integer>addListener(NUM_ENEMIES, (old, newValue) -> {
+            if (newValue == 0) {
+                //onWaveEnd();
+            }
+        });
+
+        getWorldProperties().<Integer>addListener(PLAYER_HP, (old, newValue) -> {
+            if (newValue == 0) {
+                //gameOver();
+            }
+        });
+
+        getWorldProperties().<Integer>addListener(CURRENT_WAVE, (old, newValue) -> {
+            //Animations.playWaveIconAnimation(waveIcon);
+        });
+
+        getWorldProperties().<Integer>addListener(MONEY, (old, newValue) -> {
+            if (newValue > MAX_MONEY) {
+                set(MONEY, MAX_MONEY);
+            }
+        });
+    }
+
+    @Override
+    protected void initUI() {
+        /*
+        FXGL.addUINode(new TopInfoPane());
+
+        detailPane = new TowerDetailPane();
+        FXGL.addUINode(detailPane);
+        hideDetailPane();
+        */
+    }
+
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put(NUM_ENEMIES, 0);
+        vars.put(MONEY, STARTING_MONEY);
+        vars.put(PLAYER_HP, STARTING_HP);
+        vars.put(CURRENT_WAVE, 0);
+
+        vars.put(NUM_TOWERS, 0);
+    }
+
     protected void cameraSetup() {
         camera = getGameScene().getCamera3D();
 
@@ -108,4 +155,16 @@ public class RogueTD extends GameApplication {
         camera.getTransform().lookAt(new Point3D(-10, 20, 0));
         camera.getTransform().translateZ(10);
     }
+
+    public void onEnemyKilled(Entity enemy) {
+        inc(MONEY, enemy.getComponent(EnemyComponent.class).getData().reward());
+        inc(NUM_ENEMIES, -1);
+    }
+
+    public void onEnemyReachedEnd(Entity enemy) {
+        inc(PLAYER_HP, -1);
+        inc(NUM_ENEMIES, -1);
+    }
+
+
 }

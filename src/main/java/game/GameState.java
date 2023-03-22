@@ -27,7 +27,7 @@ public class GameState {
 
     public void initWays(Base base) {
         List<Point3D> list = new Stack<Point3D>();
-        list.add(new Point3D(1.2, -0.3, 1.2));
+        list.add(new Point3D(1.2, -0.3, 1.8));
         ways.put(base, new Way(list));
     }
 

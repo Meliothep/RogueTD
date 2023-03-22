@@ -1,6 +1,8 @@
 package game.entities;
 
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
 import game.EntityType;
 import game.entities.tile.Tile;
 import game.eventhandlers.FilledCellClickHandler;
@@ -45,6 +47,7 @@ public class Enemy extends Entity {
         sphere = new Sphere(0.1);
         sphere.setMaterial(new PhongMaterial(Color.valueOf("#FF0000")));
         getViewComponent().addChild(sphere);
+        getBoundingBoxComponent().addHitBox(new HitBox("__VIEW__", BoundingShape.Companion.box(0.2, 0.2)));
     }
 
     public void setHandler(FilledCellClickHandler handler) {

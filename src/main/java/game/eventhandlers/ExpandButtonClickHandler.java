@@ -1,5 +1,6 @@
 package game.eventhandlers;
 
+import com.almasb.fxgl.dsl.FXGL;
 import game.GameState;
 import game.RogueTD;
 import game.entities.ExpandButton;
@@ -40,7 +41,7 @@ public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        RogueTD.despawnEntity(button);
+        FXGL.getGameWorld().removeEntity(button);
         try {
             Tile tile = RogueTD.spawnTile(tileCoord,
                     lastTile.getDirection().getOposite(),
