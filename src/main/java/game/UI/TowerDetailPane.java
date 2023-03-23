@@ -1,6 +1,7 @@
 package game.UI;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
@@ -20,9 +21,14 @@ public class TowerDetailPane extends VBox {
                 "-fx-border-color: #d2af6b;\n" +
                 "-fx-background-color:#fee2aa");
 
-        var levelVbox = new VBox();
-        levelVbox.getChildren().add(new Label("level "));
-        levelVbox.getChildren().add(levelLabel);
+        var levelHbox = new HBox();
+        levelHbox.setStyle("-fx-padding: 5");
+        var label = new Label("level ");
+
+        levelHbox.getChildren().add(label);
+        levelHbox.getChildren().add(levelLabel);
+
+        getChildren().add(levelHbox);
 
     }
 }

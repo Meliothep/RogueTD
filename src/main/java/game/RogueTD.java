@@ -174,7 +174,7 @@ public class RogueTD extends GameApplication {
 
         EnemyData edata = new EnemyData(
                 geti(CURRENT_WAVE) * 10,
-                geti(CURRENT_WAVE) * 5,
+                geti(CURRENT_WAVE) * 7,
                 0.02,
                 0.4);
 
