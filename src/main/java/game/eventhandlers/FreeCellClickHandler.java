@@ -1,11 +1,15 @@
 package game.eventhandlers;
 
+import com.almasb.fxgl.dsl.FXGL;
 import game.RogueTD;
 import game.entities.Tower;
 import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseEvent;
+
+import static game.datas.Vars.MONEY;
+import static game.datas.Vars.TOWER_COST;
 
 public class FreeCellClickHandler implements EventHandler<MouseEvent> {
     private final FreeCell cell;
@@ -20,14 +24,20 @@ public class FreeCellClickHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent) {
         if (cell.hasTower())
             return;
-        Point3D coord = new Point3D(parentPosition.getX() + cell.getOrigin().getX(),
-                -(0.6 + 0.2 * (cell.getMultiplier() - 1)),
-                parentPosition.getZ() + cell.getOrigin().getZ());
-        cell.setHasTower(true);
-        Tower tower = RogueTD.spawnTower(coord, cell.getMultiplier());
+        if (FXGL.geti(MONEY) >= FXGL.geti(TOWER_COST)) {
+            Point3D coord = new Point3D(parentPosition.getX() + cell.getOrigin().getX(),
+                    -(0.6 + 0.2 * (cell.getMultiplier() - 1)),
+                    parentPosition.getZ() + cell.getOrigin().getZ());
+            cell.setHasTower(true);
+            Tower tower = RogueTD.spawnTower(coord, cell.getMultiplier());
 
-        FilledCellClickHandler handler = new FilledCellClickHandler(cell, tower);
-        tower.setHandler(handler);
-        cell.setHandler(handler);
+            FilledCellClickHandler handler = new FilledCellClickHandler(cell, tower);
+            tower.setHandler(handler);
+            cell.setHandler(handler);
+            FXGL.inc(MONEY, -FXGL.geti(TOWER_COST));
+            FXGL.inc(TOWER_COST, 25);
+        } else {
+            //TODO Display tempory message
+        }
     }
 }

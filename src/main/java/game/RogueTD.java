@@ -6,6 +6,9 @@ import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import com.almasb.fxgl.ui.InGamePanel;
+import game.UI.TopInfoPane;
+import game.UI.TowerDetailPane;
 import game.components.EnemyComponent;
 import game.datas.EnemyData;
 import game.datas.WaveData;
@@ -29,6 +32,8 @@ import static game.datas.Vars.*;
 
 public class RogueTD extends GameApplication {
     private Camera3D camera;
+
+    private InGamePanel towerStats;
 
     public static void main(String[] args) {
         launch(args);
@@ -107,7 +112,7 @@ public class RogueTD extends GameApplication {
 
         getWorldProperties().<Integer>addListener(PLAYER_HP, (old, newValue) -> {
             if (newValue == 0) {
-                //gameOver();
+                //TODO gameOver();
             }
         });
 
@@ -124,13 +129,8 @@ public class RogueTD extends GameApplication {
 
     @Override
     protected void initUI() {
-        /*
         FXGL.addUINode(new TopInfoPane());
-
-        detailPane = new TowerDetailPane();
-        FXGL.addUINode(detailPane);
-        hideDetailPane();
-        */
+        FXGL.addUINode(new TowerDetailPane());
     }
 
     @Override
@@ -139,6 +139,7 @@ public class RogueTD extends GameApplication {
         vars.put(MONEY, STARTING_MONEY);
         vars.put(PLAYER_HP, STARTING_HP);
         vars.put(CURRENT_WAVE, 0);
+        vars.put(TOWER_COST, 100);
     }
 
     protected void cameraSetup() {
@@ -172,8 +173,8 @@ public class RogueTD extends GameApplication {
         var wdata = new WaveData(geti(CURRENT_WAVE));
 
         EnemyData edata = new EnemyData(
-                geti(CURRENT_WAVE) * 5,
                 geti(CURRENT_WAVE) * 10,
+                geti(CURRENT_WAVE) * 5,
                 0.02,
                 0.4);
 

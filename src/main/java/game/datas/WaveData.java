@@ -7,7 +7,7 @@ public class WaveData {
 
     public WaveData(int waveCount) {
         hasBoss = waveCount % 10 == 0;
-        enemyCount = (int) (((waveCount + 1) / 2) + ((waveCount - 1) * waveCount * 0.1));
+        enemyCount = (int) (((waveCount + 1) / 2) + ((waveCount - 1) * waveCount * 0.15));
         reward = waveCount * 50;
     }
 

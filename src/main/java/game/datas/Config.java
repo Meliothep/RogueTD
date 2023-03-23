@@ -4,7 +4,7 @@ public class Config {
 
     public static final double BULLET_SPEED = 0.2;
 
-    public static final int STARTING_MONEY = 1000;
+    public static final int STARTING_MONEY = 200;
     public static final int MAX_MONEY = 9999;
     public static final int PERFECT_CLEAR_REWARD = 100;
 
