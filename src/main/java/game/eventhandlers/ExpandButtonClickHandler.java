@@ -47,9 +47,9 @@ public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
                     lastTile.getDirection().getOposite(),
                     findValidDirections(GameState.getInstance().getTileOrigins(), tileCoord));
             GameState.getInstance().addWayPoints(lastTile, tile);
-            RogueTD.spawnExpandButton(tile);
-            RogueTD.spawnEnemy(tile);
             GameState.getInstance().addTileOrigin(tileCoord);
+            GameState.getInstance().setLastTile(tile);
+            FXGL.<RogueTD>getAppCast().onExpand();
         } catch (Exception ignored) {
         }
     }

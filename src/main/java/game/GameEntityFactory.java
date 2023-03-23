@@ -10,8 +10,8 @@ import game.components.BulletComponent;
 import game.components.EnemyComponent;
 import game.components.TowerComponent;
 import game.datas.EnemyData;
-import game.datas.TowerData;
 import game.datas.Way;
+import game.datas.towerdatas.TowerData;
 import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
@@ -36,6 +36,7 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     private static final String tileField = "tile";
     private static final String targetField = "target";
     private static final String towerField = "tower";
+    private static final String edataField = "enemyData";
 
     @Spawns(value = "TILE")
     public Entity newCell(SpawnData data) throws InvalidSpawnDataException, TileBuilderException {
@@ -65,20 +66,22 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     @Spawns(value = "TOWER")
     public Entity newTower(SpawnData data) {
         Tower tower = new Tower(new Point3D(data.getX(), data.getY(), data.getZ()));
-        tower.addComponent(new TowerComponent(new TowerData()));
+        tower.addComponent(new TowerComponent(new TowerData(data.get("multiplier"))));
         return tower;
     }
 
     @Spawns(value = "ENEMY")
     public Entity newEnemy(SpawnData data) throws InvalidSpawnDataException {
-        if (!data.hasKey(tileField) || data.get(tileField) == null || !(data.get(tileField) instanceof Tile))
-            throw new InvalidSpawnDataException("entry must be set in SpawnData");
+        if (!data.hasKey(tileField) || data.get(tileField) == null || !(data.get(tileField) instanceof Tile tile))
+            throw new InvalidSpawnDataException("tile must be set in SpawnData");
+        if (!data.hasKey(edataField) || !(data.get(edataField) instanceof EnemyData eData))
+            throw new InvalidSpawnDataException("tile must be set in SpawnData");
 
-        var tile = (Tile) data.get(tileField);
+
         var enemy = new Enemy(Enemy.fromTile(tile));
-        var eData = new EnemyData(10, 10, 0.03, 1);
         var list = GameState.getInstance().getWay(tile).getWaypoints();
-        list.add(Enemy.fromTile(tile));
+        if (!list.contains(Enemy.fromTile(tile)))
+            list.add(Enemy.fromTile(tile));
         var eComponent = new EnemyComponent(new Way(list), eData);
         enemy.addComponent(eComponent);
         enemy.addComponent(new HealthIntComponent(eData.hp()));

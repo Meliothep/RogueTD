@@ -9,11 +9,10 @@ import java.util.*;
 
 public class GameState {
     private static GameState instance;
-
-    private final int waveCount = 0;
     private final List<Point3D> tileOrigins = new ArrayList<>();
-
     private final Map<Tile, Way> ways = new HashMap<>();
+
+    private Tile lastTile;
 
     private GameState() {
     }
@@ -57,4 +56,11 @@ public class GameState {
             tileOrigins.add(point3D);
     }
 
+    public Tile getLastTile() {
+        return lastTile;
+    }
+
+    public void setLastTile(Tile lastTile) {
+        this.lastTile = lastTile;
+    }
 }

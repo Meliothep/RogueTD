@@ -7,7 +7,8 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import game.components.EnemyComponent;
-import game.entities.Enemy;
+import game.datas.EnemyData;
+import game.datas.WaveData;
 import game.entities.ExpandButton;
 import game.entities.Tower;
 import game.entities.tile.Tile;
@@ -17,6 +18,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Map;
@@ -36,11 +38,13 @@ public class RogueTD extends GameApplication {
         SpawnData data = new SpawnData(position);
         data.put("entry", entry);
         data.put("validDirections", directions);
+
         return (Tile) spawn("TILE", data);
     }
 
-    public static Tower spawnTower(Point3D position) {
+    public static Tower spawnTower(Point3D position, int multiplier) {
         SpawnData data = new SpawnData(position);
+        data.put("multiplier", multiplier);
         return (Tower) spawn("TOWER", data);
     }
 
@@ -53,17 +57,9 @@ public class RogueTD extends GameApplication {
         return (ExpandButton) spawn("EXPANDBUTTON", data);
     }
 
-    public static Enemy spawnEnemy(Tile tile) throws Exception {
-        SpawnData data = new SpawnData();
-        data.put("tile", tile);
-        if (tile.getDirection() == null) {
-            throw new Exception();
-        }
-        return (Enemy) spawn("ENEMY", data);
-    }
-
     @Override
     protected void initSettings(GameSettings gameSettings) {
+        gameSettings.setTitle("Rogue TD");
         gameSettings.set3D(true);
         gameSettings.setWidth(1280);
         gameSettings.setHeight(720);
@@ -105,7 +101,7 @@ public class RogueTD extends GameApplication {
     private void initVarListeners() {
         getWorldProperties().<Integer>addListener(NUM_ENEMIES, (old, newValue) -> {
             if (newValue == 0) {
-                //onWaveEnd();
+                onWaveEnd();
             }
         });
 
@@ -143,8 +139,6 @@ public class RogueTD extends GameApplication {
         vars.put(MONEY, STARTING_MONEY);
         vars.put(PLAYER_HP, STARTING_HP);
         vars.put(CURRENT_WAVE, 0);
-
-        vars.put(NUM_TOWERS, 0);
     }
 
     protected void cameraSetup() {
@@ -166,5 +160,34 @@ public class RogueTD extends GameApplication {
         inc(NUM_ENEMIES, -1);
     }
 
+    private void onWaveEnd() {
+        try {
+            spawnExpandButton(GameState.getInstance().getLastTile());
+        } catch (Exception ignored) {
+        }
+    }
 
+    public void onExpand() {
+        inc(CURRENT_WAVE, 1);
+        var wdata = new WaveData(geti(CURRENT_WAVE));
+
+        EnemyData edata = new EnemyData(
+                geti(CURRENT_WAVE) * 5,
+                geti(CURRENT_WAVE) * 10,
+                0.02,
+                0.4);
+
+        for (int i = 0; i < wdata.getEnemyCount(); i++) {
+            runOnce(() -> {
+                spawn("ENEMY",
+                        new SpawnData()
+                                .put("tile", GameState.getInstance().getLastTile())
+                                .put("enemyData", edata)
+                );
+
+            }, Duration.seconds(i * edata.interval()));
+        }
+
+        inc(NUM_ENEMIES, wdata.getEnemyCount());
+    }
 }

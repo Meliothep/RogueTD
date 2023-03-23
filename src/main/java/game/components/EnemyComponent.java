@@ -1,6 +1,8 @@
 package game.components;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
+import game.RogueTD;
 import game.datas.EnemyData;
 import game.datas.Way;
 import javafx.geometry.Point3D;
@@ -14,6 +16,8 @@ public class EnemyComponent extends Component {
     private final EnemyData data;
     private Point3D nextWaypoint;
 
+    private int maxhp;
+
     public EnemyComponent(Way way, EnemyData data) {
         waypoints = way.getWaypoints();
         Collections.reverse(waypoints);
@@ -26,8 +30,8 @@ public class EnemyComponent extends Component {
 
     @Override
     public void onAdded() {
+        maxhp = data.hp();
         nextWaypoint = waypoints.remove(0);
-
         entity.setPosition3D(nextWaypoint);
     }
 
@@ -46,7 +50,7 @@ public class EnemyComponent extends Component {
             if (!waypoints.isEmpty()) {
                 nextWaypoint = waypoints.remove(0);
             } else {
-                //FXGL.<TowerDefenseApp>getAppCast().onEnemyReachedEnd(entity);
+                FXGL.<RogueTD>getAppCast().onEnemyReachedEnd(entity);
 
                 entity.removeFromWorld();
             }

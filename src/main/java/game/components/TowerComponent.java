@@ -5,7 +5,7 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.time.LocalTimer;
 import game.EntityType;
-import game.datas.TowerData;
+import game.datas.towerdatas.TowerData;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
@@ -40,21 +40,22 @@ public class TowerComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        if (shootTimer.elapsed(Duration.seconds(1.5))) {
+        if (shootTimer.elapsed(Duration.seconds(data.cooldown()))) {
 
             getGameWorld()
                     .getClosestEntity(entity, e -> e.isType(EntityType.ENEMY))
                     .ifPresent(nearestEnemy -> {
-
-                        shoot(nearestEnemy);
-                        shootTimer.capture();
+                        if (nearestEnemy.getPosition3D().distance(entity.getPosition3D()) < data.range()) {
+                            shoot(nearestEnemy);
+                            shootTimer.capture();
+                        }
                     });
         }
     }
 
     private void shoot(Entity enemy) {
         Point3D position = new Point3D(getEntity().getX(), getEntity().getY() - 0.2, getEntity().getZ());
-
+        data.gainXp();
         var bullet = spawn("BULLET",
                 new SpawnData(position)
                         .put("tower", entity)

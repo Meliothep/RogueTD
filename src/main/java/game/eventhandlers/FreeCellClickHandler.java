@@ -24,7 +24,7 @@ public class FreeCellClickHandler implements EventHandler<MouseEvent> {
                 -(0.6 + 0.2 * (cell.getMultiplier() - 1)),
                 parentPosition.getZ() + cell.getOrigin().getZ());
         cell.setHasTower(true);
-        Tower tower = RogueTD.spawnTower(coord);
+        Tower tower = RogueTD.spawnTower(coord, cell.getMultiplier());
 
         FilledCellClickHandler handler = new FilledCellClickHandler(cell, tower);
         tower.setHandler(handler);
