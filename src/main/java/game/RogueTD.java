@@ -196,13 +196,10 @@ public class RogueTD extends GameApplication {
     }
 
     public void onExpand() {
-        upgradeSelectionPane.setTranslateX(0);
-        upgradeSelectionPane.changeValues();
-        upgradeSelectionPane.setVisible(true);
-
+        spawnWave();
     }
 
-    public void spawnWave() {
+    private void spawnWave() {
         inc(CURRENT_WAVE, 1);
         var wdata = new WaveData(geti(CURRENT_WAVE));
 
