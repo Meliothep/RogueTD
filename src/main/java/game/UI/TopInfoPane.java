@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import static game.datas.Config.FONT;
+import static game.datas.Config.TOP_FONT;
 import static game.datas.Vars.MONEY;
 import static game.datas.Vars.PLAYER_HP;
 
@@ -21,15 +21,15 @@ public class TopInfoPane extends HBox {
     public TopInfoPane() {
         super(5);
         goldLabel = new Label();
-        goldLabel.setFont(FONT);
+        goldLabel.setFont(TOP_FONT);
         healthLabel = new Label();
-        healthLabel.setFont(FONT);
+        healthLabel.setFont(TOP_FONT);
 
         var labelHp = new Label("   HEALTH : ");
-        labelHp.setFont(FONT);
+        labelHp.setFont(TOP_FONT);
 
         var labelGold = new Label("GOLD : ");
-        labelGold.setFont(FONT);
+        labelGold.setFont(TOP_FONT);
 
         getChildren().addAll(labelGold, goldLabel, labelHp, healthLabel);
         setAlignment(Pos.TOP_CENTER);

@@ -6,12 +6,12 @@ import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
-import com.almasb.fxgl.ui.InGamePanel;
 import game.UI.TopInfoPane;
 import game.UI.TowerDetailPane;
 import game.components.EnemyComponent;
 import game.datas.EnemyData;
 import game.datas.WaveData;
+import game.datas.towerdatas.NormalTowerData;
 import game.entities.ExpandButton;
 import game.entities.Tower;
 import game.entities.tile.Tile;
@@ -33,7 +33,7 @@ import static game.datas.Vars.*;
 public class RogueTD extends GameApplication {
     private Camera3D camera;
 
-    private InGamePanel towerStats;
+    private TowerDetailPane towerStats;
 
     public static void main(String[] args) {
         launch(args);
@@ -130,7 +130,10 @@ public class RogueTD extends GameApplication {
     @Override
     protected void initUI() {
         FXGL.addUINode(new TopInfoPane());
-        FXGL.addUINode(new TowerDetailPane());
+        towerStats = new TowerDetailPane();
+        towerStats.translateXProperty().set(-150);
+        towerStats.setVisible(false);
+        FXGL.addUINode(towerStats);
     }
 
     @Override
@@ -168,7 +171,24 @@ public class RogueTD extends GameApplication {
         }
     }
 
-    public void onExpand() {
+    public void onTowerClick(NormalTowerData data) {
+        if (towerStats.isVisible() && data == towerStats.getData()) {
+            hideTowerStat();
+        } else {
+            towerStats.setVisible(true);
+            towerStats.setData(data);
+            towerStats.setTranslateX(FXGL.getInput().mouseXUIProperty().get());
+            towerStats.setTranslateY(FXGL.getInput().mouseYUIProperty().get());
+        }
+
+    }
+
+    private void hideTowerStat() {
+        towerStats.setVisible(false);
+        towerStats.setTranslateX(-150);
+    }
+
+    public void spawnWave() {
         inc(CURRENT_WAVE, 1);
         var wdata = new WaveData(geti(CURRENT_WAVE));
 

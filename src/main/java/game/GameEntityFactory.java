@@ -11,7 +11,7 @@ import game.components.EnemyComponent;
 import game.components.TowerComponent;
 import game.datas.EnemyData;
 import game.datas.Way;
-import game.datas.towerdatas.TowerData;
+import game.datas.towerdatas.NormalTowerData;
 import game.entities.Enemy;
 import game.entities.ExpandButton;
 import game.entities.Tower;
@@ -20,6 +20,7 @@ import game.entities.tile.TileBuilder;
 import game.entities.tile.monument.Base;
 import game.exceptions.InvalidSpawnDataException;
 import game.exceptions.TileBuilderException;
+import game.strategies.FocusNearest;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
@@ -66,7 +67,7 @@ public class GameEntityFactory implements com.almasb.fxgl.entity.EntityFactory {
     @Spawns(value = "TOWER")
     public Entity newTower(SpawnData data) {
         Tower tower = new Tower(new Point3D(data.getX(), data.getY(), data.getZ()));
-        tower.addComponent(new TowerComponent(new TowerData(data.get("multiplier"))));
+        tower.addComponent(new TowerComponent(new NormalTowerData(data.get("multiplier"), new FocusNearest())));
         return tower;
     }
 

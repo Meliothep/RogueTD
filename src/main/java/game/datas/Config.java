@@ -11,5 +11,11 @@ public class Config {
     public static final int PERFECT_CLEAR_REWARD = 100;
 
     public static final int STARTING_HP = 15;
-    public static final Font FONT = new Font("verdana", 15);
+
+    public static final int XP_COST = 2;
+
+    public static final Font TOP_FONT = new Font("verdana", 15);
+    public static final Font DETAIL_FONT = new Font("verdana", 11);
+
+    public static final Font DETAIL_TITLE_FONT = new Font("verdana", 13);
 }

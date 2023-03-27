@@ -49,7 +49,7 @@ public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
             GameState.getInstance().addWayPoints(lastTile, tile);
             GameState.getInstance().addTileOrigin(tileCoord);
             GameState.getInstance().setLastTile(tile);
-            FXGL.<RogueTD>getAppCast().onExpand();
+            FXGL.<RogueTD>getAppCast().spawnWave();
         } catch (Exception ignored) {
         }
     }

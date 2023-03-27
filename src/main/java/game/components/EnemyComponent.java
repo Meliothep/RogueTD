@@ -16,8 +16,6 @@ public class EnemyComponent extends Component {
     private final EnemyData data;
     private Point3D nextWaypoint;
 
-    private int maxhp;
-
     public EnemyComponent(Way way, EnemyData data) {
         waypoints = way.getWaypoints();
         Collections.reverse(waypoints);
@@ -28,9 +26,16 @@ public class EnemyComponent extends Component {
         return data;
     }
 
+    public List<Point3D> getWaypoints() {
+        return waypoints;
+    }
+
+    public Point3D getNextWaypoint() {
+        return nextWaypoint;
+    }
+
     @Override
     public void onAdded() {
-        maxhp = data.hp();
         nextWaypoint = waypoints.remove(0);
         entity.setPosition3D(nextWaypoint);
     }

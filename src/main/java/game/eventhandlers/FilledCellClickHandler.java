@@ -1,5 +1,8 @@
 package game.eventhandlers;
 
+import com.almasb.fxgl.dsl.FXGL;
+import game.RogueTD;
+import game.components.TowerComponent;
 import game.entities.Tower;
 import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
@@ -16,6 +19,6 @@ public class FilledCellClickHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        System.out.println("there is a tower right HERE");
+        FXGL.<RogueTD>getAppCast().onTowerClick(tower.getComponent(TowerComponent.class).getData());
     }
 }
