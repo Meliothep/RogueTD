@@ -56,7 +56,7 @@ public class EnemyComponent extends Component {
                 nextWaypoint = waypoints.remove(0);
             } else {
                 FXGL.<RogueTD>getAppCast().onEnemyReachedEnd(entity);
-
+                
                 entity.removeFromWorld();
             }
         }

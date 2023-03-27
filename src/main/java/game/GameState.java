@@ -3,8 +3,8 @@ package game;
 import game.datas.Way;
 import game.datas.towerdatas.GlobalNormalTowerStats;
 import game.datas.towerdatas.TowerStats;
+import game.entities.tile.Base;
 import game.entities.tile.Tile;
-import game.entities.tile.monument.Base;
 import javafx.geometry.Point3D;
 
 import java.util.*;

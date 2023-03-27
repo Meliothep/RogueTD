@@ -2,9 +2,9 @@ package game.eventhandlers;
 
 import com.almasb.fxgl.dsl.FXGL;
 import game.RogueTD;
+import game.cell.FreeCell;
 import game.components.TowerComponent;
 import game.entities.Tower;
-import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

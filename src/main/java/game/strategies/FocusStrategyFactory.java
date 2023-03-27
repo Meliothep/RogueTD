@@ -1,7 +1,7 @@
 package game.strategies;
 
 public class FocusStrategyFactory {
-    public static FocusStrategy getStrategy(FocusStrategies name) {
+    public FocusStrategy getStrategy(FocusStrategies name) {
         switch (name) {
             case Progress -> {
                 return new FocusProgress();

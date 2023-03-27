@@ -1,13 +1,13 @@
 package game.eventhandlers;
 
 import com.almasb.fxgl.dsl.FXGL;
-import game.RogueTD;
+import game.cell.FreeCell;
 import game.entities.Tower;
-import game.objects.cell.FreeCell;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseEvent;
 
+import static game.SpawnHelper.spawnTower;
 import static game.datas.Vars.MONEY;
 import static game.datas.Vars.TOWER_COST;
 
@@ -29,7 +29,7 @@ public class FreeCellClickHandler implements EventHandler<MouseEvent> {
                     -(0.6 + 0.2 * (cell.getMultiplier() - 1)),
                     parentPosition.getZ() + cell.getOrigin().getZ());
             cell.setHasTower(true);
-            Tower tower = RogueTD.spawnTower(coord, cell.getMultiplier());
+            Tower tower = spawnTower(coord, cell.getMultiplier());
 
             FilledCellClickHandler handler = new FilledCellClickHandler(cell, tower);
             tower.setHandler(handler);

@@ -2,7 +2,7 @@ package game.entities.tile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import game.objects.cell.FreeCell;
+import game.cell.FreeCell;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;

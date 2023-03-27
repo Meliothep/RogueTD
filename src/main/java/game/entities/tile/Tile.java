@@ -1,7 +1,7 @@
 package game.entities.tile;
 
 import com.almasb.fxgl.entity.Entity;
-import game.objects.cell.FreeCell;
+import game.cell.FreeCell;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 

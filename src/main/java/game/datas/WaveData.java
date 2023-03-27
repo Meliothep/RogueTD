@@ -11,7 +11,7 @@ public class WaveData {
         reward = waveCount * 50;
     }
 
-    public boolean isHasBoss() {
+    public boolean hasBoss() {
         return hasBoss;
     }
 

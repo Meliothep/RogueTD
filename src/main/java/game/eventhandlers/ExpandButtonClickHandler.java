@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.SpawnHelper.spawnTile;
 import static game.utils.Utils.round;
 
 public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
@@ -43,7 +44,7 @@ public class ExpandButtonClickHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent) {
         FXGL.getGameWorld().removeEntity(button);
         try {
-            Tile tile = RogueTD.spawnTile(tileCoord,
+            Tile tile = spawnTile(tileCoord,
                     lastTile.getDirection().getOposite(),
                     findValidDirections(GameState.getInstance().getTileOrigins(), tileCoord));
             GameState.getInstance().addWayPoints(lastTile, tile);

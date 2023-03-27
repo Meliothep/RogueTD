@@ -3,10 +3,11 @@ package game.datas.towerdatas;
 import game.GameState;
 import game.UI.TowerDetailPane;
 import game.strategies.FocusStrategy;
+import game.utils.observer.Observable;
 
 import static game.datas.Config.XP_COST;
 
-public class NormalTowerData {
+public class NormalTowerData extends Observable {
 
     private final int multiplier;
     private int xp = 0;
@@ -47,21 +48,11 @@ public class NormalTowerData {
     }
 
     public int upgradeCost() {
-        return (int) Math.pow((int) (Math.sqrt(xp)) + 1, 2) * XP_COST;
+        return ((int) Math.pow((int) (Math.sqrt(xp)) + 1, 2) - xp) * XP_COST;
     }
 
     public void gainXp(int q) {
         xp += q * GameState.getInstance().getNormalTS().xpGain();
-        notifyObservers();
-    }
-
-    private void notifyObservers() {
-        if (pane != null)
-            pane.update();
-    }
-
-    public void setObserver(TowerDetailPane pane) {
-        this.pane = pane;
-        notifyObservers();
+        super.notifyObs();
     }
 }

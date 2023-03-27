@@ -19,7 +19,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.SOUTH, Direction.EAST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.SOUTH, Direction.EAST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(rightAngle.toArray()));
     }
@@ -31,7 +31,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.SOUTH, Direction.WEST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.SOUTH, Direction.WEST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -43,7 +43,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.EAST, Direction.NORTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.EAST, Direction.NORTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -54,7 +54,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.EAST, Direction.SOUTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.EAST, Direction.SOUTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(rightAngle.toArray()));
     }
@@ -66,7 +66,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.NORTH, Direction.WEST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.NORTH, Direction.WEST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -78,7 +78,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.NORTH, Direction.EAST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.NORTH, Direction.EAST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -90,7 +90,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.WEST, Direction.SOUTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.WEST, Direction.SOUTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -102,7 +102,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(rightAngle);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.WEST, Direction.NORTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.WEST, Direction.NORTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -113,7 +113,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.SOUTH, Direction.NORTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.SOUTH, Direction.NORTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(straight.toArray()));
     }
@@ -124,7 +124,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.NORTH, Direction.SOUTH);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.NORTH, Direction.SOUTH);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(straight.toArray()));
     }
@@ -138,7 +138,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.WEST, Direction.EAST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.WEST, Direction.EAST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }
@@ -150,7 +150,7 @@ class TileBuilderTest_rotatePrototype {
         TilePrototype prototype = new TilePrototype();
         prototype.setWayCells(straight);
         //act
-        TileBuilder.rotatePrototype(prototype, Direction.EAST, Direction.WEST);
+        TileBuilderHelper.rotatePrototype(prototype, Direction.EAST, Direction.WEST);
         //assert
         assertThat(prototype.getWayCells(), Matchers.containsInAnyOrder(result.toArray()));
     }

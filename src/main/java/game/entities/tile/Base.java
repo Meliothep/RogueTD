@@ -1,9 +1,8 @@
-package game.entities.tile.monument;
+package game.entities.tile;
 
 import game.EntityType;
-import game.entities.tile.Tile;
+import game.cell.FreeCell;
 import game.eventhandlers.FreeCellClickHandler;
-import game.objects.cell.FreeCell;
 import game.utils.Direction;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
