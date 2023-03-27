@@ -2,11 +2,12 @@ package game.UI;
 
 import com.almasb.fxgl.dsl.FXGL;
 import game.datas.Config;
-import game.datas.towerdatas.NormalTowerData;
+import game.datas.towerdatas.TowerData;
 import game.strategies.FocusStrategies;
 import game.strategies.FocusStrategyFactory;
 import game.utils.Utils;
-import game.utils.observer.Observer;
+import game.utils.observer.NormalTowerObserver;
+import game.utils.observer.ObservableTowerData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,12 +22,12 @@ import static game.datas.Config.XP_COST;
 import static game.datas.Vars.MONEY;
 
 
-public class TowerDetailPane extends HBox implements Observer {
+public class TowerDetailPane extends HBox implements NormalTowerObserver {
 
     private final VBox rightContainer = new VBox();
     private final VBox leftContainer = new VBox();
     private final FocusStrategyFactory factory = new FocusStrategyFactory();
-    private NormalTowerData data;
+    private ObservableTowerData data;
     private Label levelTextLabel;
     private Label levelCostLabel;
     private Label currentStrategy;
@@ -176,9 +177,9 @@ public class TowerDetailPane extends HBox implements Observer {
         levelupBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (FXGL.geti(MONEY) > data.upgradeCost()) {
-                    FXGL.inc(MONEY, -data.upgradeCost());
-                    data.gainXp(data.upgradeCost() / XP_COST);
+                if (FXGL.geti(MONEY) > ((TowerData) data).upgradeCost()) {
+                    FXGL.inc(MONEY, -((TowerData) data).upgradeCost());
+                    ((TowerData) data).gainXp(((TowerData) data).upgradeCost() / XP_COST);
                 }
             }
         });
@@ -226,10 +227,10 @@ public class TowerDetailPane extends HBox implements Observer {
 
         strategyBtnLeft.setOnAction(actionEvent -> {
             var list = Arrays.stream(FocusStrategies.values()).toList();
-            var index = list.indexOf(data.getFocusStrategy().name()) - 1;
+            var index = list.indexOf(((TowerData) (data)).focusStrategy().name()) - 1;
             var newStrategy = index >= 0 ? list.get(index % 4) : list.get(4 + index);
-            data.setFocusStrategy(factory.getStrategy(newStrategy));
-            update();
+            ((TowerData) (data)).setFocusStrategy(factory.getStrategy(newStrategy));
+            update(((TowerData) (data)));
         });
 
         leftButtonsBox.getChildren().add(strategyBtnLeft);
@@ -253,10 +254,10 @@ public class TowerDetailPane extends HBox implements Observer {
 
         strategyBtnRight.setOnAction(actionEvent -> {
             var list = Arrays.stream(FocusStrategies.values()).toList();
-            var index = list.indexOf(data.getFocusStrategy().name()) + 1;
+            var index = list.indexOf(((TowerData) data).focusStrategy().name()) + 1;
             var newStrategy = list.get(index % 4);
-            data.setFocusStrategy(factory.getStrategy(newStrategy));
-            update();
+            ((TowerData) data).setFocusStrategy(factory.getStrategy(newStrategy));
+            update(((TowerData) data));
         });
 
         rightButtonsBox.getChildren().add(strategyBtnRight);
@@ -272,22 +273,22 @@ public class TowerDetailPane extends HBox implements Observer {
         rightContainer.getChildren().add(strategyBox);
     }
 
-    public NormalTowerData getData() {
+    public ObservableTowerData getData() {
         return data;
     }
 
-    public void setData(NormalTowerData data) {
+    public void setData(ObservableTowerData data) {
         if (this.data != null)
             this.data.removeObserver(this);
         this.data = data;
         data.addObserver(this);
-        update();
+        update(((TowerData) (data)));
     }
 
-    public void update() {
+    public void update(TowerData data) {
         levelTextLabel.setText("level " + (int) Math.sqrt(data.xp()));
         levelCostLabel.setText(String.valueOf(data.upgradeCost()));
-        currentStrategy.setText(data.getFocusStrategy().name().name());
+        currentStrategy.setText(data.focusStrategy().name().name());
         attackValue.setText(String.valueOf(Utils.round(data.attack(), 2)));
         rangeValue.setText(String.valueOf(Utils.round(data.range(), 2)));
         cooldownValue.setText(String.valueOf(Utils.round(data.cooldown(), 2)));

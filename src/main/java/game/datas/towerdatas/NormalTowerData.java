@@ -3,11 +3,11 @@ package game.datas.towerdatas;
 import game.GameState;
 import game.UI.TowerDetailPane;
 import game.strategies.FocusStrategy;
-import game.utils.observer.Observable;
+import game.utils.observer.ObservableTowerData;
 
 import static game.datas.Config.XP_COST;
 
-public class NormalTowerData extends Observable {
+public class NormalTowerData extends ObservableTowerData implements TowerData {
 
     private final int multiplier;
     private int xp = 0;
@@ -39,7 +39,7 @@ public class NormalTowerData extends Observable {
         return xp;
     }
 
-    public FocusStrategy getFocusStrategy() {
+    public FocusStrategy focusStrategy() {
         return focusStrategy;
     }
 
@@ -53,6 +53,6 @@ public class NormalTowerData extends Observable {
 
     public void gainXp(int q) {
         xp += q * GameState.getInstance().getNormalTS().xpGain();
-        super.notifyObs();
+        super.notifyObs(this);
     }
 }

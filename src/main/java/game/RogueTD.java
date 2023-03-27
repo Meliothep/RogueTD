@@ -9,9 +9,9 @@ import game.UI.CardSelectionPane;
 import game.UI.TopInfoPane;
 import game.UI.TowerDetailPane;
 import game.components.EnemyComponent;
-import game.datas.towerdatas.NormalTowerData;
 import game.entities.tile.Base;
 import game.exceptions.CantSpawnButtonException;
+import game.utils.observer.ObservableTowerData;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.ScrollEvent;
@@ -148,7 +148,7 @@ public class RogueTD extends GameApplication {
 
     }
 
-    public void onTowerClick(NormalTowerData data) {
+    public void onTowerClick(ObservableTowerData data) {
         if (towerStats.isVisible() && data == towerStats.getData()) {
             hideTowerStat();
         } else {

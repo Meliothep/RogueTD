@@ -43,7 +43,7 @@ public class TowerComponent extends Component {
             var enemies = FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY);
             enemies.removeIf(i -> i.getPosition3D().distance(entity.getPosition3D()) > data.range());
             if (!enemies.isEmpty()) {
-                var target = data.getFocusStrategy().selectTarget(entity, enemies);
+                var target = data.focusStrategy().selectTarget(entity, enemies);
                 shoot(target);
                 shootTimer.capture();
             }
