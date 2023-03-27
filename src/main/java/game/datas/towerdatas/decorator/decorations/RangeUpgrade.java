@@ -9,7 +9,13 @@ public class RangeUpgrade extends TowerStatsDecorator {
     }
 
     @Override
+    public String description() {
+        return "+ 20%\nRANGE";
+    }
+
+
+    @Override
     public double range() {
-        return getStats().range() * 1.2;
+        return super.range() * 1.2;
     }
 }

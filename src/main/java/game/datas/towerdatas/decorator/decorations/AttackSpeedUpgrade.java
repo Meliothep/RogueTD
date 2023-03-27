@@ -9,7 +9,12 @@ public class AttackSpeedUpgrade extends TowerStatsDecorator {
     }
 
     @Override
+    public String description() {
+        return "+ 10%\n  CDR";
+    }
+
+    @Override
     public double cooldown() {
-        return getStats().cooldown() * 0.9;
+        return super.cooldown() * 0.9;
     }
 }

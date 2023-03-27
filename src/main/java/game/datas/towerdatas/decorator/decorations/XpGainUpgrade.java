@@ -9,7 +9,12 @@ public class XpGainUpgrade extends TowerStatsDecorator {
     }
 
     @Override
+    public String description() {
+        return "+ 20%\n   XP";
+    }
+
+    @Override
     public double xpGain() {
-        return getStats().xpGain() * 1.2;
+        return super.xpGain() * 1.2;
     }
 }

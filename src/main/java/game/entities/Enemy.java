@@ -23,7 +23,7 @@ public class Enemy extends Entity {
     public static Point3D fromTile(Tile tile) {
         Point3D spawnCoord = new Point3D(0, 0, 0);
         if (tile.getDirection() == null)
-            new Point3D(tile.getPosition3D().getX() + 1.4, -0.5, tile.getPosition3D().getZ() + 1.4);
+            return new Point3D(tile.getPosition3D().getX() + 1.4, -0.5, tile.getPosition3D().getZ() + 1.4);
 
         switch (tile.getDirection()) {
             case EAST -> {

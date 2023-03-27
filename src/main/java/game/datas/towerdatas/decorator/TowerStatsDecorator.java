@@ -10,7 +10,29 @@ public abstract class TowerStatsDecorator extends TowerStats {
         this.stats = stats;
     }
 
-    public TowerStats getStats() {
-        return stats;
+    @Override
+    public int attack(int lv) {
+        return stats.attack(lv);
     }
+
+    @Override
+    public int effect() {
+        return stats.effect();
+    }
+
+    @Override
+    public double range() {
+        return stats.range();
+    }
+
+    @Override
+    public double cooldown() {
+        return stats.cooldown();
+    }
+
+    @Override
+    public double xpGain() {
+        return stats.xpGain();
+    }
+
 }

@@ -6,6 +6,7 @@ import com.almasb.fxgl.app.scene.Camera3D;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import game.UI.CardSelectionPane;
 import game.UI.TopInfoPane;
 import game.UI.TowerDetailPane;
 import game.components.EnemyComponent;
@@ -34,6 +35,7 @@ public class RogueTD extends GameApplication {
     private Camera3D camera;
 
     private TowerDetailPane towerStats;
+    private CardSelectionPane upgradeSelectionPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -66,8 +68,8 @@ public class RogueTD extends GameApplication {
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setTitle("Rogue TD");
         gameSettings.set3D(true);
-        gameSettings.setWidth(1280);
-        gameSettings.setHeight(720);
+        gameSettings.setWidth(SCREEN_W);
+        gameSettings.setHeight(SCREEN_H);
     }
 
     @Override
@@ -112,12 +114,8 @@ public class RogueTD extends GameApplication {
 
         getWorldProperties().<Integer>addListener(PLAYER_HP, (old, newValue) -> {
             if (newValue == 0) {
-                //TODO gameOver();
+                gameOver();
             }
-        });
-
-        getWorldProperties().<Integer>addListener(CURRENT_WAVE, (old, newValue) -> {
-            //Animations.playWaveIconAnimation(waveIcon);
         });
 
         getWorldProperties().<Integer>addListener(MONEY, (old, newValue) -> {
@@ -134,6 +132,11 @@ public class RogueTD extends GameApplication {
         towerStats.translateXProperty().set(-150);
         towerStats.setVisible(false);
         FXGL.addUINode(towerStats);
+
+        upgradeSelectionPane = new CardSelectionPane();
+        upgradeSelectionPane.translateXProperty().set(-SCREEN_W);
+        upgradeSelectionPane.setVisible(false);
+        FXGL.addUINode(upgradeSelectionPane);
     }
 
     @Override
@@ -165,10 +168,14 @@ public class RogueTD extends GameApplication {
     }
 
     private void onWaveEnd() {
-        try {
-            spawnExpandButton(GameState.getInstance().getLastTile());
-        } catch (Exception ignored) {
+        if (geti(CURRENT_WAVE) % 3 == 0) {
+            upgradeSelectionPane.setTranslateX(0);
+            upgradeSelectionPane.changeValues();
+            upgradeSelectionPane.setVisible(true);
+        } else {
+            onUpgradeSelected();
         }
+
     }
 
     public void onTowerClick(NormalTowerData data) {
@@ -186,6 +193,13 @@ public class RogueTD extends GameApplication {
     private void hideTowerStat() {
         towerStats.setVisible(false);
         towerStats.setTranslateX(-150);
+    }
+
+    public void onExpand() {
+        upgradeSelectionPane.setTranslateX(0);
+        upgradeSelectionPane.changeValues();
+        upgradeSelectionPane.setVisible(true);
+
     }
 
     public void spawnWave() {
@@ -211,4 +225,19 @@ public class RogueTD extends GameApplication {
 
         inc(NUM_ENEMIES, wdata.getEnemyCount());
     }
+
+    public void onUpgradeSelected() {
+        upgradeSelectionPane.setVisible(false);
+        upgradeSelectionPane.setTranslateX(-SCREEN_W);
+
+        try {
+            spawnExpandButton(GameState.getInstance().getLastTile());
+        } catch (Exception ignored) {
+            spawnWave();
+        }
+    }
+
+    private void gameOver() {
+    }
+
 }

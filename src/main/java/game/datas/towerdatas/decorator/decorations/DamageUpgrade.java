@@ -9,7 +9,12 @@ public class DamageUpgrade extends TowerStatsDecorator {
     }
 
     @Override
+    public String description() {
+        return "+ 10% \nDAMAGE";
+    }
+
+    @Override
     public int attack(int lv) {
-        return getStats().attack(lv) + (int) (getStats().attack(lv) * 0.1);
+        return super.attack(lv) + (int) (super.attack(lv) * 0.1);
     }
 }

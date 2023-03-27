@@ -2,6 +2,7 @@ package game;
 
 import game.datas.Way;
 import game.datas.towerdatas.GlobalNormalTowerStats;
+import game.datas.towerdatas.TowerStats;
 import game.entities.tile.Tile;
 import game.entities.tile.monument.Base;
 import javafx.geometry.Point3D;
@@ -13,7 +14,7 @@ public class GameState {
     private final List<Point3D> tileOrigins = new ArrayList<>();
     private final Map<Tile, Way> ways = new HashMap<>();
 
-    private GlobalNormalTowerStats normalTS = new GlobalNormalTowerStats();
+    private TowerStats normalTS = new GlobalNormalTowerStats();
     private Tile lastTile;
 
     private GameState() {
@@ -66,11 +67,11 @@ public class GameState {
         this.lastTile = lastTile;
     }
 
-    public GlobalNormalTowerStats getNormalTS() {
+    public TowerStats getNormalTS() {
         return normalTS;
     }
 
-    public void setNormalTS(GlobalNormalTowerStats normalTS) {
+    public void setNormalTS(TowerStats normalTS) {
         this.normalTS = normalTS;
     }
 }
