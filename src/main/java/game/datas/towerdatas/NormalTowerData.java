@@ -10,7 +10,7 @@ import static game.datas.Config.XP_COST;
 public class NormalTowerData extends ObservableTowerData implements TowerData {
 
     private final int multiplier;
-    private int xp = 0;
+    private int xp = 1;
     private FocusStrategy focusStrategy;
     private TowerDetailPane pane;
 
@@ -20,7 +20,7 @@ public class NormalTowerData extends ObservableTowerData implements TowerData {
     }
 
     public int attack() {
-        return GameState.getInstance().getNormalTS().attack((int) Math.sqrt(xp)) * ((multiplier + 1) / 2);
+        return GameState.getInstance().getNormalTS().attack((int) Math.sqrt(xp)) * (1 + ((multiplier + 1) / 5));
     }
 
     public int effect() {

@@ -47,6 +47,8 @@ public class BulletComponent extends Component {
 
         var hp = target.getComponent(HealthIntComponent.class);
 
+        System.out.println(hp);
+
         hp.damage(data.getDamage());
         if (hp.isZero()) {
             FXGL.<RogueTD>getAppCast().onEnemyKilled(target);

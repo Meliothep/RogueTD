@@ -105,12 +105,6 @@ public class RogueTD extends GameApplication {
                 gameOver();
             }
         });
-
-        getWorldProperties().<Integer>addListener(MONEY, (old, newValue) -> {
-            if (newValue > MAX_MONEY) {
-                set(MONEY, MAX_MONEY);
-            }
-        });
     }
 
     @Override

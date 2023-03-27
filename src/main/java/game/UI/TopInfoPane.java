@@ -36,7 +36,7 @@ public class TopInfoPane extends HBox {
         labelGold.setFont(TOP_FONT);
 
         var labelWave = new Label("WAVE : ");
-        labelGold.setFont(TOP_FONT);
+        labelWave.setFont(TOP_FONT);
 
         var goldContainer = new HBox();
         goldContainer.setStyle("" +
@@ -80,7 +80,7 @@ public class TopInfoPane extends HBox {
         getChildren().addAll(goldContainer, healthContainer, waveContainer);
 
         setAlignment(Pos.TOP_CENTER);
-        setLayoutX(SCREEN_W / 2 - 100);
+        setLayoutX(SCREEN_W / 2 - 75);
         setLayoutY(5);
         healthLabel.textProperty().bind(FXGL.getip(PLAYER_HP).asString());
         goldLabel.textProperty().bind(FXGL.getip(MONEY).asString());

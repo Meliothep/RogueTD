@@ -3,12 +3,13 @@ package game.datas;
 public class WaveData {
     private final boolean hasBoss;
     private final int enemyCount;
-    private final int reward;
+
+    private final int hpPool;
 
     public WaveData(int waveCount) {
         hasBoss = waveCount % 10 == 0;
-        enemyCount = (int) (((waveCount + 1) / 2) + ((waveCount - 1) * waveCount * 0.15));
-        reward = waveCount * 50;
+        enemyCount = (int) ((Math.log(waveCount) * 4) + 1);
+        hpPool = (int) (Math.pow(waveCount, 3)) + 10 * waveCount;
     }
 
     public boolean hasBoss() {
@@ -19,7 +20,9 @@ public class WaveData {
         return enemyCount;
     }
 
-    public int getReward() {
-        return reward;
+    public int getHpPool() {
+        return hpPool;
     }
+
+
 }

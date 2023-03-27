@@ -8,6 +8,7 @@ import game.entities.Tower;
 import game.entities.tile.Tile;
 import game.exceptions.CantSpawnButtonException;
 import game.utils.Direction;
+import game.utils.Utils;
 import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
@@ -22,13 +23,23 @@ public class SpawnHelper {
         inc(CURRENT_WAVE, 1);
         var wdata = new WaveData(geti(CURRENT_WAVE));
 
-        EnemyData edata = new EnemyData(
-                geti(CURRENT_WAVE) * 10,
-                geti(CURRENT_WAVE) * 7,
-                0.02,
-                0.4);
+        var hpPool = wdata.getHpPool();
 
         for (int i = 0; i < wdata.getEnemyCount(); i++) {
+            var hp = hpPool;
+            if (i != wdata.getEnemyCount() - 1) {
+                var a = hpPool / (wdata.getEnemyCount() - i);
+                var b = hpPool / (wdata.getEnemyCount() - i) * 0.1;
+                hp = Utils.randomIntBetween((int) (a - b), (int) (a + b));
+                hpPool -= hp;
+            }
+
+            EnemyData edata = new EnemyData(
+                    hp,
+                    (int) ((Math.log(geti(CURRENT_WAVE)) + 1) * 8),
+                    0.02,
+                    0.4);
+            System.out.println(edata.hp());
             runOnce(() -> {
                 spawn("ENEMY",
                         new SpawnData()
