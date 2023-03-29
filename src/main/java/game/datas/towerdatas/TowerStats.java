@@ -6,7 +6,7 @@ public abstract class TowerStats {
     }
 
     public int attack(int lv) {
-        return (int) (lv * 1.2 + 11);
+        return (int) (lv * 1.4 + 11);
     }
 
     public int effect() {

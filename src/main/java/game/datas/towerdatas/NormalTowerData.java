@@ -20,7 +20,9 @@ public class NormalTowerData extends ObservableTowerData implements TowerData {
     }
 
     public int attack() {
-        return GameState.getInstance().getNormalTS().attack((int) Math.sqrt(xp)) * (1 + ((multiplier) / 4));
+        var baseDamage = GameState.getInstance().getNormalTS().attack((int) (Math.sqrt(xp)));
+        var multiplier = (double) (1 + ((this.multiplier) / 4));
+        return (int) (baseDamage * multiplier);
     }
 
     public int effect() {
