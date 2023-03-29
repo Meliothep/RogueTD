@@ -36,7 +36,7 @@ public class SpawnHelper {
 
             EnemyData edata = new EnemyData(
                     hp,
-                    (int) ((Math.log(geti(CURRENT_WAVE)) + 1) * 8 + hp * 0.05),
+                    (int) ((Math.log(geti(CURRENT_WAVE)) + 1) * 7 + Math.pow(hp, 0.33)),
                     0.02,
                     0.4);
 
