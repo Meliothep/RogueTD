@@ -9,7 +9,7 @@ public class WaveData {
     public WaveData(int waveCount) {
         hasBoss = waveCount % 10 == 0;
         enemyCount = (int) ((Math.log(waveCount) * 4) + 1);
-        hpPool = (int) (Math.pow(waveCount, 3)) + 10 * waveCount;
+        hpPool = (int) (Math.pow(waveCount, 3)*1.4) + 10 * waveCount;
     }
 
     public boolean hasBoss() {
