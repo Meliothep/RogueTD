@@ -36,10 +36,10 @@ public class SpawnHelper {
 
             EnemyData edata = new EnemyData(
                     hp,
-                    (int) ((Math.log(geti(CURRENT_WAVE)) + 1) * 8),
+                    (int) ((Math.log(geti(CURRENT_WAVE)) + 1) * 8 + hp / 0.05),
                     0.02,
                     0.4);
-            System.out.println(edata.hp());
+
             runOnce(() -> {
                 spawn("ENEMY",
                         new SpawnData()

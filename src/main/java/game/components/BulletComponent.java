@@ -9,9 +9,7 @@ import game.RogueTD;
 import game.datas.Config;
 import javafx.geometry.Point3D;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
+
 public class BulletComponent extends Component {
 
     private final Entity tower;
@@ -46,8 +44,6 @@ public class BulletComponent extends Component {
         entity.removeFromWorld();
 
         var hp = target.getComponent(HealthIntComponent.class);
-
-        System.out.println(hp);
 
         hp.damage(data.getDamage());
         if (hp.isZero()) {

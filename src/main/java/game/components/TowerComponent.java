@@ -13,11 +13,7 @@ import javafx.util.Duration;
 import static com.almasb.fxgl.dsl.FXGL.newLocalTimer;
 import static com.almasb.fxgl.dsl.FXGL.spawn;
 
-/**
- * // TODO: assign bullet data from tower that shot it
- *
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
+
 public class TowerComponent extends Component {
 
     private final NormalTowerData data;
