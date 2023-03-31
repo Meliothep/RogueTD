@@ -22,7 +22,7 @@ public class FreeCellClickHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if (cell.hasTower())
+        if (mouseEvent.isSecondaryButtonDown() || cell.hasTower())
             return;
         if (FXGL.geti(MONEY) >= FXGL.geti(TOWER_COST)) {
             Point3D coord = new Point3D(parentPosition.getX() + cell.getOrigin().getX(),

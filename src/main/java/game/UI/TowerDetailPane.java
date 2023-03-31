@@ -49,7 +49,6 @@ public class TowerDetailPane extends HBox implements NormalTowerObserver {
 
         leftContainer.setSpacing(5);
         getChildren().add(leftContainer);
-
     }
 
     private void statsBox() {

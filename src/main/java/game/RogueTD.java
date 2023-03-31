@@ -3,9 +3,12 @@ package game;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Camera3D;
+import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import game.UI.CardSelectionPane;
+import game.UI.GameMenu;
 import game.UI.TopInfoPane;
 import game.UI.TowerDetailPane;
 import game.components.EnemyComponent;
@@ -14,6 +17,7 @@ import game.exceptions.CantSpawnButtonException;
 import game.utils.observer.ObservableTowerData;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
@@ -29,6 +33,7 @@ public class RogueTD extends GameApplication {
     private Camera3D camera;
     private TowerDetailPane towerStats;
     private CardSelectionPane upgradeSelectionPane;
+    private boolean isFirstGame = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -38,8 +43,16 @@ public class RogueTD extends GameApplication {
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setTitle("Rogue TD");
         gameSettings.set3D(true);
+        gameSettings.setMainMenuEnabled(true);
         gameSettings.setWidth(SCREEN_W);
         gameSettings.setHeight(SCREEN_H);
+        gameSettings.setSceneFactory(new SceneFactory() {
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new GameMenu();
+            }
+        });
+
     }
 
     @Override
@@ -56,16 +69,28 @@ public class RogueTD extends GameApplication {
                 camera.moveBack();
             }
         });
+        FXGL.getInput().addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (mouseEvent.isSecondaryButtonDown())
+                hideDetailPanel();
+        });
+    }
+
+    private void hideDetailPanel() {
+        towerStats.setVisible(false);
+        towerStats.setTranslateX(-150);
     }
 
     @Override
     protected void initGame() {
         initVarListeners();
 
-        getGameWorld().addEntityFactory(new GameEntityFactory());
-        cameraSetup();
-        getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
+        if (isFirstGame) {
+            cameraSetup();
+            isFirstGame = false;
+        }
 
+        getGameWorld().addEntityFactory(new GameEntityFactory());
+        getGameScene().setBackgroundColor(Color.valueOf("#7985ab"));
         GameState.getInstance().addTileOrigin(new Point3D(0, 0, 0));
         try {
             Base base = (Base) spawn("BASE", 0, 0, 0);
@@ -77,7 +102,6 @@ public class RogueTD extends GameApplication {
 
     private void cameraSetup() {
         camera = getGameScene().getCamera3D();
-
         camera.getTransform().translateY(-10);
         camera.getTransform().translateX(8);
         camera.getTransform().lookAt(new Point3D(-10, 20, 0));
@@ -143,21 +167,19 @@ public class RogueTD extends GameApplication {
     }
 
     public void onTowerClick(ObservableTowerData data) {
-        if (towerStats.isVisible() && data == towerStats.getData()) {
-            hideTowerStat();
-        } else {
-            towerStats.setVisible(true);
-            towerStats.setData(data);
-            towerStats.setTranslateX(FXGL.getInput().mouseXUIProperty().get());
-            towerStats.setTranslateY(FXGL.getInput().mouseYUIProperty().get());
-        }
-
+        towerStats.setVisible(true);
+        towerStats.setData(data);
+        towerStats.setTranslateX(FXGL.getInput().mouseXUIProperty().get());
+        towerStats.setTranslateY(FXGL.getInput().mouseYUIProperty().get());
     }
 
     public void onExpand() {
         spawnWave();
     }
 
+    public void onReset() {
+
+    }
 
     public void onUpgradeSelected() {
         upgradeSelectionPane.setVisible(false);
@@ -171,10 +193,5 @@ public class RogueTD extends GameApplication {
     }
 
     private void gameOver() {
-    }
-
-    private void hideTowerStat() {
-        towerStats.setVisible(false);
-        towerStats.setTranslateX(-150);
     }
 }
