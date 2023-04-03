@@ -12,11 +12,20 @@ par conséquent n'hésitez pas à contribuer (faire des pr).
 
 Les cours de base de donnée c'est bien, mais c long quand meme...
 
+## Comment lancer le jeux 
+
+Apres avoir cloné le projet vous avez 2 choix possibles :
+- Utiliser votre IDE pour lancer le jeu
+- Utiliser la commande suivante `mvn clean package exec:java '-Dexec.mainClass="game.RogueTD"'`
+
 ## Comment jouer ?
 
-- Lancer le jeu
-- Poser des tour avec clic gauche sur les zone verte
-- La hauteur de la cellule influe sur les degats des tours
-- Pour consulter les stats d'une tour il suffis de clicker dessus (et recliqué dessus pour refermer, un clic sur une
-  autre tour fera changer les information ainsi que la location de la fenetre)
-- Cette fenetre permet de lvUp la tour ou de changer la strategie qu'elle applique
+En attendant qu'il y ai un veritable tutoriel il va faloir se contenté de ceci
+
+### Objectif 
+
+Éliminer les adversaires (actuellement sphère rouge) avant qu'il n'arrive au monument (actuellement gros cube attirance) pour cela, vous pouvez poser des tours qui gagneront en dégât si elles sont posées sur les emplacements les plus hauts ainsi qu'en augmentant de niveau, sachant que celles-ci gagnent de l'xp à chaque tir.  
+
+Il est possible d'afficher les statistiques et stratégie de focus possible en effectuant un clic gauche sur une tourelle (ou sur la cellule sur laquelle elle est posée), cet affichage pourra être fermé à l'aide d'un clic droit. 
+
+Afin de lancer une nouvelle vague, il suffit d'appuyer sur le "+" qui s'affiche au bout du chemin.
