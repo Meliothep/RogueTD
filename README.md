@@ -22,8 +22,6 @@ Apres avoir cloné le projet vous avez 2 choix possibles :
 
 En attendant qu'il y ai un veritable tutoriel il va faloir se contenté de ceci
 
-### Objectif 
-
 Éliminer les adversaires (actuellement sphère rouge) avant qu'il n'arrive au monument (actuellement gros cube attirance) pour cela, vous pouvez poser des tours qui gagneront en dégât si elles sont posées sur les emplacements les plus hauts ainsi qu'en augmentant de niveau, sachant que celles-ci gagnent de l'xp à chaque tir.  
 
 Il est possible d'afficher les statistiques et stratégie de focus possible en effectuant un clic gauche sur une tourelle (ou sur la cellule sur laquelle elle est posée), cet affichage pourra être fermé à l'aide d'un clic droit. 
