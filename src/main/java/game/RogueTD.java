@@ -132,10 +132,6 @@ public class RogueTD extends GameApplication {
     @Override
     protected void initUI() {
         FXGL.addUINode(new TopInfoPane());
-        gameoverPane = new GameOverPane();
-        gameoverPane.setTranslateX(-SCREEN_W);
-        gameoverPane.setVisible(false);
-        FXGL.addUINode(gameoverPane);
         towerStats = new TowerDetailPane();
         towerStats.translateXProperty().set(-150);
         towerStats.setVisible(false);
@@ -195,7 +191,7 @@ public class RogueTD extends GameApplication {
     }
 
     private void gameOver() {
-        gameoverPane.setTranslateX(SCREEN_W);
-        gameoverPane.setVisible(true);
+        gameoverPane = new GameOverPane();
+        FXGL.addUINode(gameoverPane);
     }
 }

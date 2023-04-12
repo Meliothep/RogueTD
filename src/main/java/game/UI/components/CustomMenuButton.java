@@ -10,9 +10,9 @@ import javafx.scene.paint.Color;
 import static com.almasb.fxgl.dsl.FXGL.getUIFactoryService;
 
 public class CustomMenuButton extends Parent {
-    public CustomMenuButton(String name, Runnable action) {
+    public CustomMenuButton(String name, Runnable action, float w, float h) {
         var box = new HBox();
-        box.setPrefSize(400, 30);
+        box.setPrefSize(w, h);
         box.setAlignment(Pos.CENTER);
         box.setStyle("-fx-background-radius: 15;\n" +
                 "-fx-border-radius: 15;\n" +
@@ -21,7 +21,7 @@ public class CustomMenuButton extends Parent {
                 "-fx-background-color:#d8b571;\n" +
                 "-fx-padding: 7;");
 
-        var text = getUIFactoryService().newText(name, Color.valueOf("#fee2aa"), FontType.TEXT, 30);
+        var text = getUIFactoryService().newText(name, Color.valueOf("#fee2aa"), FontType.UI, 20);
         text.setStrokeWidth(1.5);
         text.strokeProperty().bind(text.fillProperty());
 

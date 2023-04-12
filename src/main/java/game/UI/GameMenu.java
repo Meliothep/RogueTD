@@ -1,32 +1,25 @@
 package game.UI;
 
 
-import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.input.view.MouseButtonView;
 import com.almasb.fxgl.scene.Scene;
-import com.almasb.fxgl.ui.FontType;
 import game.UI.components.CustomMenuButton;
 import game.datas.Config;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.CacheHint;
-import javafx.scene.Node;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static javafx.scene.input.KeyCode.*;
@@ -34,7 +27,6 @@ import static javafx.scene.input.KeyCode.*;
 public class GameMenu extends FXGLMenu {
 
     private final VBox scoresRoot = new VBox(10);
-    private final Node highScores;
     private final boolean isLoadedScore = false;
 
     public GameMenu() {
@@ -43,7 +35,7 @@ public class GameMenu extends FXGLMenu {
         bg.setFill(Color.valueOf("#7985ab"));
         getContentRoot().getChildren().setAll(new Rectangle(getAppWidth(), getAppHeight()));
 
-        var title = getUIFactoryService().newText(getSettings().getTitle(), Color.WHITE, FontType.GAME, 60);
+        var title = getUIFactoryService().newText(getSettings().getTitle(), Color.WHITE, 60);
         title.setStroke(Color.WHITESMOKE);
         title.setStrokeWidth(1.5);
 
@@ -55,19 +47,17 @@ public class GameMenu extends FXGLMenu {
         var version = getUIFactoryService().newText(getSettings().getVersion(), Color.WHITE, 22.0);
         centerTextBind(version, getAppWidth() / 2.0, 220);
 
-
         var menuBox = new VBox(
                 5,
-                new CustomMenuButton("New Game", () -> fireNewGame()),
-                new CustomMenuButton("High Scores", () -> toggleHighScores()),
-                new CustomMenuButton("How to Play", () -> instructions()),
-                new CustomMenuButton("Exit", () -> fireExit())
+                new CustomMenuButton("New Game", () -> fireNewGame(), 200, 30),
+                new CustomMenuButton("How to Play", () -> instructions(), 200, 30),
+                new CustomMenuButton("Exit", () -> fireExit(), 200, 30)
         );
 
 
         menuBox.setAlignment(Pos.TOP_CENTER);
 
-        menuBox.setTranslateX(getAppWidth() / 2.0 - 400 / 2);
+        menuBox.setTranslateX(getAppWidth() / 2.0 - 100);
         menuBox.setTranslateY(getAppHeight() / 2.0);
 
         // useful for checking if nodes are properly centered
@@ -76,38 +66,21 @@ public class GameMenu extends FXGLMenu {
 
         scoresRoot.setPadding(new Insets(10));
         scoresRoot.setAlignment(Pos.TOP_LEFT);
+        
 
-        StackPane hsRoot = new StackPane();
-        hsRoot.setAlignment(Pos.TOP_CENTER);
-        hsRoot.setCache(true);
-        hsRoot.setCacheHint(CacheHint.SPEED);
-
-        highScores = hsRoot;
-
-
-        getContentRoot().getChildren().addAll(bg, title, version, menuBox, hsRoot);
+        getContentRoot().getChildren().addAll(bg, title, version, menuBox);
     }
 
     @Override
     public void onCreate() {
-        if (isLoadedScore)
-            return;
+        if (isLoadedScore) {
+        }
     }
 
     @Override
     public void onEnteredFrom(Scene prevState) {
     }
 
-
-    private void toggleHighScores() {
-        animationBuilder(this)
-                .duration(Duration.seconds(0.66))
-                .interpolator(Interpolators.EXPONENTIAL.EASE_OUT())
-                .translate(highScores)
-                .from(new Point2D(getAppWidth(), highScores.getTranslateY()))
-                .to(new Point2D(getAppWidth() - 450, highScores.getTranslateY()))
-                .build().start();
-    }
 
     private void instructions() {
         GridPane pane = new GridPane();
@@ -116,8 +89,9 @@ public class GameMenu extends FXGLMenu {
         }
         pane.setHgap(25);
         pane.setVgap(10);
-        pane.addRow(0, getUIFactoryService().newText("Movement"), new HBox(4, new KeyView(W), new KeyView(S), new KeyView(A), new KeyView(D)));
-        pane.addRow(1, getUIFactoryService().newText("Shoot"), new MouseButtonView(MouseButton.PRIMARY));
+        pane.addRow(0, getUIFactoryService().newText("Movement"), new HBox(4, new KeyView(Z), new KeyView(Q), new KeyView(S), new KeyView(D)));
+        pane.addRow(1, getUIFactoryService().newText("Place tower / Show stats"), new MouseButtonView(MouseButton.PRIMARY));
+        pane.addRow(2, getUIFactoryService().newText("Hide Panels"), new MouseButtonView(MouseButton.SECONDARY));
 
         getDialogService().showBox("How to Play", pane, getUIFactoryService().newButton("OK"));
     }
