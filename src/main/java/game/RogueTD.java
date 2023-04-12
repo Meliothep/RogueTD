@@ -7,10 +7,7 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import game.UI.CardSelectionPane;
-import game.UI.GameMenu;
-import game.UI.TopInfoPane;
-import game.UI.TowerDetailPane;
+import game.UI.*;
 import game.components.EnemyComponent;
 import game.entities.tile.Base;
 import game.exceptions.CantSpawnButtonException;
@@ -34,6 +31,7 @@ public class RogueTD extends GameApplication {
     private TowerDetailPane towerStats;
     private CardSelectionPane upgradeSelectionPane;
     private boolean isFirstGame = true;
+    private GameOverPane gameoverPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -134,6 +132,10 @@ public class RogueTD extends GameApplication {
     @Override
     protected void initUI() {
         FXGL.addUINode(new TopInfoPane());
+        gameoverPane = new GameOverPane();
+        gameoverPane.setTranslateX(-SCREEN_W);
+        gameoverPane.setVisible(false);
+        FXGL.addUINode(gameoverPane);
         towerStats = new TowerDetailPane();
         towerStats.translateXProperty().set(-150);
         towerStats.setVisible(false);
@@ -193,5 +195,7 @@ public class RogueTD extends GameApplication {
     }
 
     private void gameOver() {
+        gameoverPane.setTranslateX(SCREEN_W);
+        gameoverPane.setVisible(true);
     }
 }

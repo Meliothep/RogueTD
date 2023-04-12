@@ -21,6 +21,4 @@ public class FocusLeastHP implements FocusStrategy {
         });
         return enemies.stream().findFirst().get();
     }
-
-
 }

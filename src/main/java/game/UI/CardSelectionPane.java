@@ -1,6 +1,7 @@
 package game.UI;
 
 import game.GameState;
+import game.UI.components.UpgradeCardPane;
 import game.datas.towerdatas.decorator.TowerDecorationFactory;
 import game.datas.towerdatas.decorator.TowerDecorations;
 import javafx.scene.layout.HBox;

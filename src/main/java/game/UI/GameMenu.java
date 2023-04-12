@@ -8,14 +8,14 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.input.view.MouseButtonView;
 import com.almasb.fxgl.scene.Scene;
+import com.almasb.fxgl.ui.FontType;
+import game.UI.components.CustomMenuButton;
 import game.datas.Config;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
@@ -43,7 +43,7 @@ public class GameMenu extends FXGLMenu {
         bg.setFill(Color.valueOf("#7985ab"));
         getContentRoot().getChildren().setAll(new Rectangle(getAppWidth(), getAppHeight()));
 
-        var title = getUIFactoryService().newText(getSettings().getTitle(), Color.WHITE, 46.0);
+        var title = getUIFactoryService().newText(getSettings().getTitle(), Color.WHITE, FontType.GAME, 60);
         title.setStroke(Color.WHITESMOKE);
         title.setStrokeWidth(1.5);
 
@@ -55,21 +55,19 @@ public class GameMenu extends FXGLMenu {
         var version = getUIFactoryService().newText(getSettings().getVersion(), Color.WHITE, 22.0);
         centerTextBind(version, getAppWidth() / 2.0, 220);
 
-        getContentRoot().getChildren().addAll(title, version);
-
 
         var menuBox = new VBox(
                 5,
-                new MenuButton("New Game", () -> fireNewGame()),
-                new MenuButton("High Scores", () -> toggleHighScores()),
-                new MenuButton("How to Play", () -> instructions()),
-                new MenuButton("Exit", () -> fireExit())
+                new CustomMenuButton("New Game", () -> fireNewGame()),
+                new CustomMenuButton("High Scores", () -> toggleHighScores()),
+                new CustomMenuButton("How to Play", () -> instructions()),
+                new CustomMenuButton("Exit", () -> fireExit())
         );
 
 
         menuBox.setAlignment(Pos.TOP_CENTER);
 
-        menuBox.setTranslateX(getAppWidth() / 2.0 - 125);
+        menuBox.setTranslateX(getAppWidth() / 2.0 - 400 / 2);
         menuBox.setTranslateY(getAppHeight() / 2.0);
 
         // useful for checking if nodes are properly centered
@@ -87,7 +85,7 @@ public class GameMenu extends FXGLMenu {
         highScores = hsRoot;
 
 
-        getContentRoot().getChildren().addAll(bg, menuBox, hsRoot);
+        getContentRoot().getChildren().addAll(bg, title, version, menuBox, hsRoot);
     }
 
     @Override
@@ -122,35 +120,5 @@ public class GameMenu extends FXGLMenu {
         pane.addRow(1, getUIFactoryService().newText("Shoot"), new MouseButtonView(MouseButton.PRIMARY));
 
         getDialogService().showBox("How to Play", pane, getUIFactoryService().newButton("OK"));
-    }
-
-    private static class MenuButton extends Parent {
-        MenuButton(String name, Runnable action) {
-            var box = new HBox();
-            box.setStyle("-fx-background-radius: 15;\n" +
-                    "-fx-border-radius: 15;\n" +
-                    "-fx-border-width:2;\n" +
-                    "-fx-border-color: #fee2aa;\n" +
-                    "-fx-background-color:#d8b571;\n" +
-                    "-fx-padding: 7;");
-
-            var text = getUIFactoryService().newText(name, Color.valueOf("#fee2aa"), 30);
-            text.setStrokeWidth(1.5);
-            text.strokeProperty().bind(text.fillProperty());
-
-            text.fillProperty().bind(
-                    Bindings.when(hoverProperty())
-                            .then(Color.valueOf("#fee2aa"))
-                            .otherwise(Color.WHITE)
-            );
-
-            setOnMouseClicked(e -> action.run());
-
-            setPickOnBounds(true);
-
-            box.getChildren().add(text);
-
-            getChildren().add(box);
-        }
     }
 }

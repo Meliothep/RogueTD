@@ -1,4 +1,4 @@
-package game.UI;
+package game.UI.components;
 
 import com.almasb.fxgl.dsl.FXGL;
 import game.GameState;

@@ -20,6 +20,7 @@ public class TopInfoPane extends HBox {
 
     public TopInfoPane() {
         super(5);
+        setTranslateX(-100);
         goldLabel = new Label();
         goldLabel.setFont(TOP_FONT);
 
